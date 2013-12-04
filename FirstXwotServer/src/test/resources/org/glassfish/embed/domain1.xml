@@ -1,0 +1,23 @@
+<jdbc-resource pool-name="mysql_RESTauth_rootPool" jndi-name="jdbc/userauthdb"></jdbc-resource>
+        <jdbc-connection-pool datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource"
+        res-type="javax.sql.DataSource"  ping="true" name="mysql_RESTauth_rootPool">
+            <property name="ConnectionAttributes" value=";create=true" />
+            <!--<property name="DatabaseName" value="./target/unit-test" />-->
+            <property name="DatabaseName" value="memory:testDB" />
+            <property name="Password" value="" />
+            <property name="User" value="" />
+        </jdbc-connection-pool>
+
+
+        <resource-ref ref="jdbc/userauthdb" />
+
+        <auth-realm name="userauth" classname="com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm">
+                    <property name="jaas-context" value="jdbcRealm"></property>
+                    <property name="datasource-jndi" value="jdbc/userauthdb"></property>
+                    <property name="user-table" value="users"></property>
+                    <property name="user-name-column" value="username"></property>
+                    <property name="password-column" value="password"></property>
+                    <property name="group-table" value="groups"></property>
+                    <property name="group-name-column" value="groupname"></property>
+                    <property name="digest-algorithm" value="NONE"></property>
+                </auth-realm>

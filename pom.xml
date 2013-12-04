@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>diuf.unifr.ch.first.xwot</groupId>
+    <artifactId>FirstXwot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>FirstXwot</name>
+    <url>http://digsim.is-a-geek.com</url>
+    <organization>
+        <name>Andy</name>
+        <url>http://digsim.is-a-geek.com</url>
+    </organization>
+    <developers>
+        <developer>
+            <name>Andreas Ruppen</name>
+            <email>andreas.ruppen@gmail.com</email>
+            <organization>digsim</organization>
+            <organizationUrl>http://digsim.is-a-geek.com</organizationUrl>
+            <roles>
+                <role>Project Lead</role>
+            </roles>
+            <timezone>+1</timezone>
+
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>GNU General Public License</name>
+            <url>LICENSE.txt</url>
+        </license>
+    </licenses>
+    
+    <scm>
+        <connection>scm:svn:https://diufpc19.unifr.ch/slowlpl/trunk/SlowLPL</connection>
+        <developerConnection>scm:svn:https://diufpc19.unifr.ch/slowlpl/trunk/SlowLPL</developerConnection>
+        <url>http://diufpc19.unifr.ch/websvn/listing.php?repname=SlowLPL&amp;path=%2Ftrunk%2F#path_trunk_</url>
+    </scm>
+    <issueManagement>
+        <system>Trac</system>
+        <url>http://diufpc19.unifr.ch/trac/slowlpl/</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Hudson</system>
+        <url>http://diufpc19.unifr.ch/hudson/</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <address>andreas.ruppen@gmail.com</address>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    <inceptionYear>2013</inceptionYear>
+    <properties>
+        <projectBaseUri>${project.baseUri}</projectBaseUri>
+        <glassfish.version>3.0</glassfish.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>[4.0,5.0)</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>env-local</id>
+            <properties>
+                <env>local</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>env-prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0-beta-3</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.2</version>
+                            <reports>
+                                <report>index</report>
+                                <report>project-team</report>
+                                <report>license</report>
+                                <report>mailing-list</report>
+                                <report>dependencies</report>
+                                <report>dependency-convergence</report>
+                                <report>plugin-management</report>
+                                <report>cim</report>
+                                <report>issue-tracking</report>
+                                <report>scm</report>
+                                <report>summary</report>
+                            </reports>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.1</version>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.8</version>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>jxr-maven-plugin</artifactId>
+                            <version>2.0-beta-1</version>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>surefire-report-maven-plugin</artifactId>
+                            <version>2.0-beta-1</version>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <version>2.5</version>
+                            <configuration>
+                                <targetJdk>1.6</targetJdk>
+                                <rulesets>
+                                    <ruleset>/rulesets/basic.xml</ruleset>
+                                    <ruleset>/rulesets/controversial.xml</ruleset>
+                                </rulesets>
+                                <format>xml</format>
+                                <linkXref>true</linkXref>
+                                <sourceEncoding>utf-8</sourceEncoding>
+
+
+                                <minimumTokens>100</minimumTokens>
+                            </configuration>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>taglist-maven-plugin</artifactId>
+                            <version>2.4</version>
+                            <configuration>
+                                <tagListOptions>
+                                    <tagClasses>
+                                        <tagClass>
+                                            <displayName>Todo Work</displayName>
+                                            <tags>
+                                                <tag>
+                                                    <matchString>todo</matchString>
+                                                    <matchType>ignoreCase</matchType>
+                                                </tag>
+                                                <tag>
+                                                    <matchString>FIXME</matchString>
+                                                    <matchType>exact</matchType>
+                                                </tag>
+                                            </tags>
+                                        </tagClass>
+                                        <tagClass>
+                                            <displayName>Open Questions</displayName>
+                                            <tags>
+                                                <tag>
+                                                    <matchString>QUESTION</matchString>
+                                                    <matchType>ignoreCase</matchType>
+                                                </tag>
+                                            </tags>
+                                        </tagClass>
+                                    </tagClasses>
+                                </tagListOptions>
+                            </configuration>
+                        </plugin>
+                        <!-- This one reads src/changes/changes.xml-->
+                        <!--
+                        <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>changes-maven-plugin</artifactId>
+                                <version>2.2</version>
+                              </plugin>
+                        -->
+
+                        <!-- this one reads the changes from the svn log -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-changelog-plugin</artifactId>
+                            <version>2.2</version>
+                            <reportSets>
+                                <reportSet>
+                                    <id>dual-report</id>
+                                    <configuration>
+                                        <type>range</type>
+                                        <range>150</range>
+                                    </configuration>
+                                    <reports>
+                                        <report>changelog</report>
+                                        <report>file-activity</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+            
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>2.6</version>
+                            <reportSets>
+                                <reportSet>
+                                    <id>integration-tests</id>
+                                    <reports>
+                                        <report>report-only</report>
+                                    </reports>
+                                    <configuration>
+                                        <outputName>failsafe-report</outputName>
+                                        <reportsDirectories>
+                                            <reportsDirectory>${basedir}/target/failsafe-reports</reportsDirectory>
+                                        </reportsDirectories>
+
+                                    </configuration>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+  <modules>
+    <module>FirstXwotClient</module>
+    <module>FirstXwotServer</module>
+  </modules>
+</project>

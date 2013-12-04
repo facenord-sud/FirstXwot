@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!--
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+-->
+    <display-name>SlowLPLServer</display-name>
+    
+    <context-param>
+        <param-name>
+          org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
+        </param-name>
+        <param-value>
+          /WEB-INF/tiles-defs.xml,/org/apache/tiles/classpath-defs.xml
+        </param-value>
+    </context-param>
+    <servlet>
+        <description>This is the Atmosphere Servlet</description>
+        <servlet-name>ServletAdaptor</servlet-name>
+        <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+        
+        <init-param>
+            <param-name>org.atmosphere.useWebSocket</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        
+        <init-param>
+            <param-name>org.atmosphere.useNative</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        
+        <init-param>
+            <param-name>org.atmosphere.core.servlet-mapping</param-name>
+            <param-value>/resources</param-value>
+        </init-param>
+
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.RolesAllowedResourceFilterFactory</param-value>
+        </init-param>
+       
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    
+    <listener>
+        <listener-class>org.apache.tiles.web.startup.TilesListener</listener-class>
+    </listener>
+    
+    <servlet-mapping>
+        <servlet-name>ServletAdaptor</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+        
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <display-name>Tasks</display-name>
+        <web-resource-collection>
+            <web-resource-name>Tasks</web-resource-name>
+            <description/>
+            <url-pattern>/work/*</url-pattern> <!-- TODO This should be /resources/* but then ws:// will not work -->
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Have to be a USER</description>
+            <role-name>ADMIN</role-name>
+            <role-name>USERS</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>userauth</realm-name>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>USERS</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>ADMIN</role-name>
+    </security-role>
+   
+</web-app>

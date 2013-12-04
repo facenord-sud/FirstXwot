@@ -1,0 +1,28 @@
+------
+SlowLPL - An asynchronous REST Implmentations of the LPL web Solver
+------
+Andreas Ruppen
+
+ 
+Introduction
+
+  SlowLPL is a RESTful webservice interface to the LPL Web Solver. Solving big problems with LPL can be time consuming. Therefore the RESTful implementation is Slow which means that request are made in a asynchronous manner.
+
+  Upon creating a new Task the server answers with a 202 - Accepted and the URI of the created task. It is then possible via a polling mechanisms (GET /uri) to get the actual progress of the task. 
+
+  Besides that classical approach the server also advertises the user by mail when the task is finished so the user does not need to continuously polling the RESTful webservice in order to know if the computation is done.
+
+  This means that the servers mimics a sort of asynchronous RESTful webservice. In its final state, the service will support more than one method for advertising the user:
+
+  * Based on the user's device there are several advertising possiblities:
+
+    * Send a mail.
+
+    * Send (apple) Push notifications. This is currently not implemented.
+
+  * If none of them is supported by the client, classical polling on the service will also work.
+
+  This is the WEB Inferface to the LPL Solver. It allows submitting simple LPL programs and have them solved by the LPL Solver. Upon submitting the task, the interface polls the server every 10 seconds to see
+if the task is either finished or aborted in which case the interface shows the result of the computation. It is however also possible, after submitting a new task to quit the WEB Interface and come back later to check
+if the task is now finished (or aborted) and consult the details of the computation.
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="myPackage" extends="struts-default">
+		<action name="index" class="war.IndexAction">
+			<result>/jsp/index.jsp</result>
+		</action>
+		<action name="helloWorld" class="helloWorldAction"> 
+			<result name="input">/jsp/index.jsp</result>
+			<result>/jsp/helloWorld.jsp</result>
+		</action>
+                <action name="tasks" class="org.homelinux.digsim.lpl.actions.TasksAction">
+                    <result>/jsp/runningTasks.jsp</result>
+                </action>
+                <action name="task" class="org.homelinux.digsim.lpl.actions.TaskAction">
+                    <result>/jsp/taskDetails.jsp</result>
+                </action>
+	</package>
+</struts>

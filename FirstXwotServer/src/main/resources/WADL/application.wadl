@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:ns="http://softeng.unifr.ch/REST/generator/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wadl.dev.java.net/2009/02 http://www.w3.org/Submission/wadl/wadl.xsd">
+	<grammars>
+		<include href="smart_lb.xsd"/>
+	</grammars>
+	<resources base="http://localhost:9090/mySystem/">
+		<resource id="com.example.lightbulb.resources.DoorDeviceResource" path="/door">
+			<method id="getDoorDeviceResourceXML" name="GET">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+			<method id="getDoorDeviceResourceHTML" name="GET">
+				<response>
+					<representation mediaType="text/html"/>
+				</response>
+			</method>
+			<method id="postDoorDeviceResourceXML" name="POST">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+		</resource>
+		<resource id="com.example.lightbulb.resources.OpenContextResource" path="/door/open">
+			<method id="getOpenContextResourceXML" name="GET">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+			<method id="getOpenContextResourceHTML" name="GET">
+				<response>
+					<representation mediaType="text/html"/>
+				</response>
+			</method>
+			<method id="putOpenContextResourceXML" name="PUT">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+		</resource>
+		<resource id="com.example.lightbulb.resources.OpenContextResourcePublisherResource" path="/door/open/pub">
+			<method id="getOpenContextResourcePublisherResourceXML" name="GET">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+			<method id="getOpenContextResourcePublisherResourceHTML" name="GET">
+				<response>
+					<representation mediaType="text/html"/>
+				</response>
+			</method>
+			<method id="postOpenContextResourcePublisherResourceXML" name="POST">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+		</resource>
+		<resource id="com.example.lightbulb.resources.LockContextResource" path="/door/lock">
+			<method id="getLockContextResourceXML" name="GET">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+			<method id="getLockContextResourceHTML" name="GET">
+				<response>
+					<representation mediaType="text/html"/>
+				</response>
+			</method>
+			<method id="putLockContextResourceXML" name="PUT">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+		</resource>
+		<resource id="com.example.lightbulb.resources.LockContextResourcePublisherResource" path="/door/lock/pub">
+			<method id="getLockContextResourcePublisherResourceXML" name="GET">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+			<method id="getLockContextResourcePublisherResourceHTML" name="GET">
+				<response>
+					<representation mediaType="text/html"/>
+				</response>
+			</method>
+			<method id="postLockContextResourcePublisherResourceXML" name="POST">
+				<response>
+					<representation mediaType="application/xml"/>
+					<representation mediaType="application/json"/>
+					<representation mediaType="text/xml"/>
+				</response>
+			</method>
+		</resource>
+	</resources>
+</application>

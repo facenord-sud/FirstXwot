@@ -1,0 +1,126 @@
+------
+SlowLPL - Protocol
+------
+
+The GET Request
+
+  A GET request can be either executed against tasks/ which will return a list of tasks (finished, aborted and running) or against tasks/{$id} which will return the details for just one task. The GET request support multiple formats: XML, JSON, Text and HTLM. The user can choose which representation the server should send back with the
+"Accept:" Header. If the user wants for example an XML representation he would send the following header: "Accept: application/xml". 
+
+  If the users sends a GET request to tasks/-800467318 the answer will look like:
+
++---------------------------------------
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Task aborted="false" finished="true" uri="http://localhost:8080/SlowLPLServer/work/tasks/-800467318">
+  <callbackAddress></callbackAddress>
+  <callbackStrategy>-1</callbackStrategy>
+  <id>-800467318</id>
+  <problemName>circles2</problemName>
+  <computation>http://localhost:8080/SlowLPLServer/lpltmp/-800467318.lpl</computation>
+  <result>
+    <fileResult>http://localhost:8080/SlowLPLServer/lpltmp/-800467318.nom</fileResult>
+    <imageResult>http://localhost:8080/SlowLPLServer/lpltmp/-800467318.jpg</imageResult>
+    <logResult>i can read from "/home/ruppena/NetBeansProjects/SlowLPLServer/target/SlowLPLServer/lpltmp/-800467318.lpl" This is another log message I will wait now for 20 seconds Finished waiting for 20 seconds lpl" TIMER 36 : LPL ended</logResult>
+  </result>
+  <startdate>1294827204638</startdate>
+  <usedSolverTime>36</usedSolverTime>
+  <username>ruppena</username>
+</Task>
++---------------------------------------
+
+  if the user sends a GET request to tasks/ the answer will look like:
+
++---------------------------------------
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Tasks uri="http://localhost:8080/SlowLPLServer/work/tasks/">
+  <Links>
+    <link href="http://localhost:8080/SlowLPLServer/work/tasks/?start=2&amp;size=2" rel="next" type="application/xml" />
+  </Links>
+  <Tasklist>
+    <Task aborted="false" finished="true" uri="http://localhost:8080/SlowLPLServer/work/tasks/-800467318/">
+      <callbackAddress></callbackAddress>
+      <callbackStrategy>-1</callbackStrategy>
+      <computation>http://localhost:8080/SlowLPLServer/lpltmp/-800467318.lpx</computation>
+      <id>-800467318</id>
+      <problemName>circles2</problemName>
+      <startdate>1294827204638</startdate>
+      <usedSolverTime>36</usedSolverTime>
+      <username>ruppena</username>
+    </Task>
+    <Task aborted="false" finished="true" uri="http://localhost:8080/SlowLPLServer/work/tasks/-1360225909/">
+      <callbackAddress></callbackAddress>
+      <callbackStrategy>-1</callbackStrategy>
+      <computation>http://localhost:8080/SlowLPLServer/lpltmp/-1360225909.lpx</computation>
+      <id>-1360225909</id>
+      <problemName>circles2</problemName>
+      <startdate>1294827063915</startdate>
+      <usedSolverTime>36</usedSolverTime>
+      <username>ruppena</username>
+    </Task>
+  </Tasklist>
+</Tasks>
++---------------------------------------
+
+  It is basically the same. However the tasks are wraped in a Tasklist element with size of 2 Tasks (when not specified in the GET request). Furthermore there are link elements used for pagination.
+
+The DELETE request
+
+  Sometimes a task can go wrong and needs to be aborted. Or the result of a task is not needed anymore and should be deleted from the server. For those sceanrios there is the DELETE request. As for the GET request several represenations are possible through the "Accept" header. The result of a DELETE request is the same as for a GET request with the additional side effect that the task (and all associated files) are deleted from the server (and thus the database).
+
+The PUT request
+
+  The PUT request is used to created a new Task on the server. The PUT request consumes XML/JSON as input and produces eiter flat text or XML/JSON. This request is mainly used from the Web Interface where only simple Problems are solved. Such Problems cannot have external dependencies since they are described directly in send XML/JSON. An example for a PUT request is:
+
++---------------------------------------
+<Task aborted="false" finished="true" uri="http://localhost:8080/SlowLPLServer/work/tasks/-800467318">
+  <callbackAddress></callbackAddress>
+  <callbackStrategy>-1</callbackStrategy>
+  <problemName>circles2</problemName>
+  <computation>
+    MODEL circles   ;
+  SetRandomSeed(55);
+  PARAMETER n := 34   ;
+            nt := Trunc(Sqrt(n)+0.5);
+  SET i,j:= 1..n;
+  PARAMETER  
+    x0{i}:=Rnd(((i-1)%nt)/nt,((i-1)%nt+1)/nt);
+    y0{i}:=(y0[i] :=
+      Rnd(Trunc((i-1)/nt)/nt,Trunc((i-1)/nt+1)/nt),
+            if(y0>1,y0-1,y0));
+  VARIABLE 
+    x{i} [0,1] := y0  ; 
+    y{i} [0,1] := y0  ;
+    t    ; 
+  CONSTRAINT
+    R{i,j|i<j}: (x[i]-x[j])^2+(y[i]-y[j])^2 >= t
+      ;
+  MAXIMIZE obj: t ;
+
+  PARAMETER T := Sqrt(t);
+  WRITE 'Diameter of the circles is: %10.8f\n' : T;
+  Draw.Ratio(400,400);
+  Draw.Rect(0,0,1+T,1+T,0);
+  Draw.Rect(T/2,T/2,1+T/2,1+T/2,4);
+  FOR{i} DO Draw.Ellipse(x[i],y[i],x[i]+T,y[i]+T,2); END
+  Draw.Text(T&' ',0,0,0);
+END
+  </computation>
+</Task>
++---------------------------------------
+
+  The server will return the same result as for a GET request on that given Task.
+
+The POST request
+
+  LPL files can be complex and are sometimes precompiled. Submitting those files in the body of the XML is too much pain. For this use case the user can POST a multipart form which is made of the LPL file (with file ending lpx) and a String which has XML strucutre to describe the new task. The XML is similar to the the one of the PUT request but without the <computation> part.
+
++---------------------------------------
+<Task aborted="false" finished="true" uri="http://localhost:8080/SlowLPLServer/work/tasks/-800467318">
+  <callbackAddress></callbackAddress>
+  <callbackStrategy>-1</callbackStrategy>
+  <problemName>circles2</problemName>
+</Task>
++---------------------------------------
+
+    Again the server will answer the same as for the PUT request.
+  

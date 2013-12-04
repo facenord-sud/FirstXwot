@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+    <Task id='1000' parentId='0' computation='Start 1' answer="" finished="0" aborted="1" problemName="Problem 1" callbackStrategy="email" callbackAddress="andreas.ruppen@gmail.com" startDate="1294826400729" username="ruppena" errorMessage="" usedSolverTime="36" />
+    <Task id='1001' parentId='0' computation='Start 2' answer="" finished="0" aborted="1" problemName="Problem 1" callbackStrategy="email" callbackAddress="andreas.ruppen@gmail.com" startDate="1294826400729" username="ruppena" errorMessage="" usedSolverTime="36" />
+    <Task id='1002' parentId='0' computation='Start 3' answer="" finished="0" aborted="1" problemName="Problem 1" callbackStrategy="email" callbackAddress="andreas.ruppen@gmail.com" startDate="1294826400729" username="ruppena" errorMessage="" usedSolverTime="36" />
+    <Task id='1003' parentId='0' computation='Start 4' answer="" finished="0" aborted="1" problemName="Problem 1" callbackStrategy="email" callbackAddress="andreas.ruppen@gmail.com" startDate="1294826400729" username="ruppena" errorMessage="" usedSolverTime="36" />
+    <Task id='1004' parentId='0' computation='Start 4' answer="" finished="0" aborted="1" problemName="Problem 1" callbackStrategy="email" callbackAddress="andreas.ruppen@gmail.com" startDate="1294826400729" username="ruppena" errorMessage="" usedSolverTime="36" />
+
+    <SolverTime id="1" userId="ruppena" solvertime="10000" />
+</dataset>

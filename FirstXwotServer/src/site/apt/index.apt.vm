@@ -1,0 +1,35 @@
+------
+SlowLPL - An asynchronous REST Implmentations of the LPL web Solver ${project.version}
+------
+Andreas Ruppen
+
+ 
+Introduction
+
+  SlowLPL  is a RESTful webservice interface to the LPL Web Solver. Solving big problems with LPL can be time consuming. Therefore the RESTful implementation is Slow which means that request are made in a asynchronous manner.
+
+  Upon creating a new Task the server answers with a 202 - Accepted and the URI of the created task. It is then possible via a polling mechanisms (GET /uri) to get the actual progress of the task. 
+
+  Besides that classical approach the server also advertises the user by mail when the task is finished so the user does not need to continuously polling the RESTful webservice in order to know if the computation is done.
+
+  This means that the servers mimics a sort of asynchronous RESTful webservice. In its final state, the service will support more than one method for advertising the user:
+
+  * Based on the user's device there are several advertising possiblities:
+
+    * Send a mail.
+
+    * Send (apple) Push notifications. This is currently not implemented.
+
+  * If none of them is supported by the client, classical polling on the service will also work.
+
+
+Installation
+
+  The Slow LPL packets needs running Glassfish configured with a database and some access control. In order to setup everything correctly follow this receipt:
+
+  *  Install Glassfish and MySql
+  *  Setup the database with the two *.sql scripts
+  *  Setup the domain.xml as follows:
+  *  Download mysql-connector/J from MySQL and put it into domains/domain1/lib/ext/
+  *  Start Glassfish
+  *  Deploy the wars

@@ -1,0 +1,8 @@
+------
+SlowLPL - Roadmap
+------
+  * Implement more callback methods.
+
+  * Adapt CSS to match the old blue style.
+
+  * Allow filtering the GET request to respond with only aborted tasks for example.

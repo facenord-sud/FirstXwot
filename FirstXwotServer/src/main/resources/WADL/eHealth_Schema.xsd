@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" xmlns:tns="http://eHealth"
+	targetNamespace="http://eHealth">
+
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings>
+				<jaxb:javaType name="java.net.URI" xmlType="xs:anyURI" parseMethod="create"
+					printMethod="toASCIIString"/>
+				<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime" />
+			</jaxb:globalBindings>
+			<jaxb:bindings>
+				<jaxb:bindings node="//xs:attribute[@name='status']/xs:simpleType">
+					<jaxb:typesafeEnumClass name="Status" />
+				</jaxb:bindings>
+			</jaxb:bindings>
+		</xs:appinfo>
+	</xs:annotation>
+	
+	<xs:element name="door">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="listOfDevices" maxOccurs="1" minOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="tns:open" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="tns:lock" minOccurs="1" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="open">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:speed" minOccurs="0" maxOccurs="1"></xs:element>
+				<xs:element ref="tns:state" minOccurs="0" maxOccurs="1"></xs:element>
+			</xs:sequence>
+			<xs:attribute name="uri" type="xs:anyURI"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="lock">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:speed" minOccurs="0" maxOccurs="1"></xs:element>
+				<xs:element ref="tns:state" minOccurs="0" maxOccurs="1"></xs:element>
+			</xs:sequence>
+			<xs:attribute name="uri" type="xs:anyURI"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="speed" type="xs:integer"/>
+	<xs:element name="state">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="CLOSING"/>
+				<xs:enumeration value="OPENING"/>
+				<xs:enumeration value="CLOSED"/>
+				<xs:enumeration value="OPEN"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="devices">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="listOfDevices" maxOccurs="1" minOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="tns:device" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="device">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="location" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="port" type="xs:int" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="address" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="uri" type="xs:anyURI"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="tasks">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="links" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="tns:link" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="listofTasks" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="tns:task" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="uri" type="xs:anyURI"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="task">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="userid" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="results" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="tns:result" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="input" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="startdate" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="enddate" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="logmessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="uri" type="xs:anyURI"/>
+			<xs:attribute name="status">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="RUNNING"/>
+						<xs:enumeration value="FINISHED"/>
+						<xs:enumeration value="ERROR"/>
+						<xs:enumeration value="ABORTED"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+
+
+
+	<xs:element name="result">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="value"/>
+			</xs:sequence>
+			<xs:attribute name="uri" type="xs:anyURI"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="link">
+		<xs:complexType>
+			<xs:sequence/>
+			<xs:attribute name="href" type="xs:string"/>
+			<xs:attribute name="rel" type="xs:string"/>
+			<xs:attribute name="type" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+
+
+</xs:schema>

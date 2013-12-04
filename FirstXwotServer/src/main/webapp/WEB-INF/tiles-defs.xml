@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+
+
+<!--
+     This is a blank Tiles definition file with a commented example.
+-->
+
+<tiles-definitions>
+    <definition name="mainLayout" template="/WEB-INF/layout/tiles_layout.jsp">
+        <put-attribute name="header" value = "/WEB-INF/layout/tiles_header.jsp" />
+        <put-attribute name="footer" value = "/WEB-INF/layout/tiles_footer.jsp" />
+        <put-attribute name="sidebar" value = "/WEB-INF/layout/tiles_sidebar.jsp" />
+    </definition>
+
+    <definition name="welcomePage" extends="mainLayout">
+        <put-attribute name="title"  value="LPL Internet Solver" />
+        <put-attribute name="content"   value="/WEB-INF/view/content/welcome_content.jsp" />
+    </definition>
+
+    <definition name="tasksPage" extends="mainLayout">
+        <put-attribute name="title"  value="Currently Running Tasks" />
+        <put-attribute name="content"   value="/WEB-INF/view/content/tasks_content.jsp" />
+    </definition>
+
+    <definition name="taskPage" extends="mainLayout">
+        <put-attribute name="title"  value="Details of Task" />
+        <put-attribute name="content"   value="/WEB-INF/view/content/task_content.jsp" />
+    </definition>
+
+   
+
+    <definition name="solverPage" extends="mainLayout">
+        <put-attribute name="title"  value="Details of Task" />
+        <put-attribute name="content"   value="/WEB-INF/view/content/solver_content.jsp" />
+    </definition>
+
+    <definition name="taskdeletedPage" extends="mainLayout">
+        <put-attribute name="title"  value="Some Tutorials" />
+        <put-attribute name="content"   value="/WEB-INF/view/content/taskdeleted_content.jsp" />
+    </definition>
+
+</tiles-definitions>

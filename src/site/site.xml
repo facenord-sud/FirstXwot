@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Slow LPL Server">
+    <skin>
+        <groupId>com.googlecode.fluido-skin</groupId>
+        <artifactId>fluido-skin</artifactId>
+        <version>1.3</version>
+    </skin>
+
+
+    <publishDate position="right"/>
+    <version position="right"/>
+    <poweredBy>
+        <logo name="Maven" href="http://maven.apache.org/"
+          img="http://maven.apache.org/images/logos/maven-feather.png"/>
+    </poweredBy>
+
+    <bannerLeft>
+        <name>Slow LPL - LPL Solver with Asynchronous REST architecture</name>
+        <src>http://maven.apache.org/images/apache-maven-project.png</src>
+        <href>http://digsim.is-a-geek.com</href>
+    </bannerLeft>
+    <bannerRight>
+        <src>images/bannerRight.png</src>
+    </bannerRight>
+    <body>
+        <links>
+            <item name="GPL" href="http://www.gnu.org/licenses/licenses.html" />
+            <item name="Blog" href="http://digsim.is-a-geek.com"/>
+        </links>
+
+        <menu name="SlowREST">
+            <item name="Introduction" href="index.html"/>
+            <item name="Protocol" href="protocol.html"/>
+            <item name="Download" href="download.html"/>
+            <item name="Release Notes" href="release-notes.html" />
+            <item name="General Information" href="about.html"/>
+      <!--<item name="For Maven 1.x Users" href="maven1.html"/>-->
+            <item name="Road Map" href="roadmap.html" />
+            <item name="Project License" href="license.html" />
+            <item name="FAQ" href="faq.html" />
+        </menu>
+
+        <menu ref="reports"/>
+
+    </body>
+</project>

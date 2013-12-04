@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>diuf.unifr.ch.first.xwot</groupId>
+        <artifactId>FirstXwot</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>FirstXwotClient</artifactId>
+    <packaging>war</packaging>
+    <name>FirstXwotClient</name>
+
+    <description>SlowLPLClient is a Web interface for SlowLPLServer. Users should only use this Interface for interacting with
+        the LPL Solver solver. The SlowLPLServer HTML part is more for debbuging and not meant to be used directly.
+
+        Usage: mvn clean package to create the war package which then can be deployed to an Appliation Server. 
+
+        mvn site generates the webpage of the project.
+
+        mvn verify does the integration-tests. They are based on a instance of embedded glassfish. The used database behind the JDBC
+        connection is an in memory database. This way we don't have to handle with a special database. Integration Test Classes are
+        placed in the same folder as JUnit test but they have to be named as follows: *ITCase.java
+
+        mvn test only executes the JUnit test.</description>
+
+    <repositories>
+        <!--
+        <repository>
+            <id>glassfish-repository</id>
+            <name>GlassFish Nexus Repository</name>
+            <url>http://maven.glassfish.org/content/groups/glassfish</url>
+        </repository>
+        -->
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <url>http://download.java.net/maven/1</url>
+            <id>toplink</id>
+            <layout>legacy</layout>
+            <name>Repository for library Library[toplink]</name>
+        </repository>
+        <repository>
+            <id>EclipseLink Repo</id>
+            <name>Repository for library Library[eclipselink]</name>
+            <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
+            <snapshots>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!--  Struts 2 -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-sitemesh-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-config-browser-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+
+        <!-- Servlet & Jsp -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+	
+        <!-- Dwr -->
+        <dependency>
+            <groupId>uk.ltd.getahead</groupId>
+            <artifactId>dwr</artifactId>
+            <version>1.1-beta-3</version>
+        </dependency>
+
+        <!-- Jersey -->
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        
+    </dependencies>
+	
+    <build>
+        <filters>
+            <filter>src/main/filters/filter_${env}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/server.properties</include>
+                </includes>
+            </resource>
+            <!--otherwise only src/main/resources/server.properties would be copied -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/server.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+           
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <!--This defines additional ressources to add-->
+                    <webResources>
+                        <resource>
+                            <filtering>true</filtering>
+                            <directory>src/main/webapp</directory>
+                            <includes>
+                                <include>**/*.xml</include>
+                                <include>**/*.js</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty-version}</version>
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <stopPort>9977</stopPort>
+                    <stopKey>STOP</stopKey>
+                    <webApp>
+                        <contextPath>/${project.name}</contextPath>
+                        <descriptor>${project.build.directory}/web.xml</descriptor>
+                    </webApp>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>9091</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                    <loginServices>
+                        <loginService implementation="org.eclipse.jetty.security.HashLoginService">
+                            <name>userauth</name>
+                            <config>${project.build.directory}/test-classes/jetty-realm.properties</config>
+                        </loginService>
+                    </loginServices>
+                </configuration>
+                
+            </plugin>
+        </plugins>
+        <finalName>${project.name}</finalName>
+    </build>
+    <properties>
+        <jersey-version>1.12</jersey-version>
+        <atmosphere-version>0.8..6</atmosphere-version>
+        <jetty-version>8.1.2.v20120308</jetty-version>
+        <struts2.version>2.1.8.1</struts2.version>
+    </properties>
+</project>
