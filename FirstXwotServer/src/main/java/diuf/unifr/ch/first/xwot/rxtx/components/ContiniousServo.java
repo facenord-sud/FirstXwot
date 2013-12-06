@@ -10,24 +10,18 @@ package diuf.unifr.ch.first.xwot.rxtx.components;
  *
  * @author leo
  */
-public class ContiniousServo {
+public class ContiniousServo{
     
     private int speed;
-    private String direction;
-
+    public final static int NULL_SPEED = 93;
+    public final static int OPEN_MAX_SPEED = 180;
+    public final static int CLOSE_MAX_SPEED = 0;
+    
     public int getSpeed() {
         return speed;
     }
 
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-
-    public String getDirectrion() {
-        return direction;
-    }
-
-    public void setDirectrion(String directrion) {
-        this.direction = directrion;
     }
 }

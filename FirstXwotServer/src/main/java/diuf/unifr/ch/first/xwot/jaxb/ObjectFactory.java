@@ -1,10 +1,7 @@
 
 package diuf.unifr.ch.first.xwot.jaxb;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
-import javax.xml.namespace.QName;
 
 
 /**
@@ -24,9 +21,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _State_QNAME = new QName("http://jaxb.xwot.first.ch.unifr.diuf", "state");
-    private final static QName _Position_QNAME = new QName("http://jaxb.xwot.first.ch.unifr.diuf", "position");
-    private final static QName _Speed_QNAME = new QName("http://jaxb.xwot.first.ch.unifr.diuf", "speed");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: diuf.unifr.ch.first.xwot.jaxb
@@ -41,14 +35,6 @@ public class ObjectFactory {
      */
     public Lock createLock() {
         return new Lock();
-    }
-
-    /**
-     * Create an instance of {@link Open }
-     * 
-     */
-    public Open createOpen() {
-        return new Open();
     }
 
     /**
@@ -68,30 +54,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link State }{@code >}}
+     * Create an instance of {@link Client }
      * 
      */
-    @XmlElementDecl(namespace = "http://jaxb.xwot.first.ch.unifr.diuf", name = "state")
-    public JAXBElement<State> createState(State value) {
-        return new JAXBElement<State>(_State_QNAME, State.class, null, value);
+    public Client createClient() {
+        return new Client();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
+     * Create an instance of {@link Open }
      * 
      */
-    @XmlElementDecl(namespace = "http://jaxb.xwot.first.ch.unifr.diuf", name = "position")
-    public JAXBElement<Integer> createPosition(Integer value) {
-        return new JAXBElement<Integer>(_Position_QNAME, Integer.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Integer }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://jaxb.xwot.first.ch.unifr.diuf", name = "speed")
-    public JAXBElement<Integer> createSpeed(Integer value) {
-        return new JAXBElement<Integer>(_Speed_QNAME, Integer.class, null, value);
+    public Open createOpen() {
+        return new Open();
     }
 
 }

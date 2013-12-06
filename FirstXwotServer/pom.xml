@@ -97,6 +97,13 @@
         </dependency>
         -->
         
+        <!-- Apache http client -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.1</version>
+	</dependency>
+        
         <!--  Gson: Java to Json conversion and vice versa -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -432,6 +439,7 @@
                 </executions>
             </plugin>
             -->
+            
             <!-- This one only generates the XSD -> JAXB mappings -->
             <!--
             <plugin>

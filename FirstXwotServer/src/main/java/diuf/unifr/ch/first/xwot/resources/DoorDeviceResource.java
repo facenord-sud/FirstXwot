@@ -10,15 +10,11 @@ import java.net.URI;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 @Path("/door")
-
 public class DoorDeviceResource {
 
-    @Context UriInfo uri;
     @GET
     @Produces({"application/xml", "application/json", "text/xml" })
     public Response getDoorDeviceResourceXML() {
@@ -37,12 +33,4 @@ public class DoorDeviceResource {
         
         return Response.ok(door).build();
     }
-
-    @GET
-    @Produces("text/html")
-    public Response getDoorDeviceResourceHTML() {
-        //TODO: implement
-        return null;
-    }
-
 }

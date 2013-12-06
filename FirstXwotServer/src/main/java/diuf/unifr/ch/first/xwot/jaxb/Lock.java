@@ -5,11 +5,13 @@ import java.net.URI;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import diuf.unifr.ch.first.xwot.org.w3._2001.xmlschema.Adapter1;
+import org.w3._2001.xmlschema.Adapter1;
 
 
 /**
@@ -22,9 +24,14 @@ import diuf.unifr.ch.first.xwot.org.w3._2001.xmlschema.Adapter1;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://jaxb.xwot.first.ch.unifr.diuf}speed" minOccurs="0"/>
- *         &lt;element ref="{http://jaxb.xwot.first.ch.unifr.diuf}state" minOccurs="0"/>
- *         &lt;element ref="{http://jaxb.xwot.first.ch.unifr.diuf}position" minOccurs="0"/>
+ *         &lt;element name="state">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;enumeration value="CLOSED"/>
+ *               &lt;enumeration value="OPEN"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *       &lt;attribute name="uri" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
  *     &lt;/restriction>
@@ -36,54 +43,27 @@ import diuf.unifr.ch.first.xwot.org.w3._2001.xmlschema.Adapter1;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "speed",
-    "state",
-    "position"
+    "state"
 })
 @XmlRootElement(name = "lock")
 public class Lock {
 
-    protected Integer speed;
-    protected State state;
-    protected Integer position;
+    @XmlElement(required = true)
+    protected Lock.State state;
     @XmlAttribute(name = "uri")
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "anyURI")
     protected URI uri;
 
     /**
-     * Gets the value of the speed property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getSpeed() {
-        return speed;
-    }
-
-    /**
-     * Sets the value of the speed property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setSpeed(Integer value) {
-        this.speed = value;
-    }
-
-    /**
      * Gets the value of the state property.
      * 
      * @return
      *     possible object is
-     *     {@link State }
+     *     {@link Lock.State }
      *     
      */
-    public State getState() {
+    public Lock.State getState() {
         return state;
     }
 
@@ -92,35 +72,11 @@ public class Lock {
      * 
      * @param value
      *     allowed object is
-     *     {@link State }
+     *     {@link Lock.State }
      *     
      */
-    public void setState(State value) {
+    public void setState(Lock.State value) {
         this.state = value;
-    }
-
-    /**
-     * Gets the value of the position property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getPosition() {
-        return position;
-    }
-
-    /**
-     * Sets the value of the position property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setPosition(Integer value) {
-        this.position = value;
     }
 
     /**
@@ -145,6 +101,43 @@ public class Lock {
      */
     public void setUri(URI value) {
         this.uri = value;
+    }
+
+
+    /**
+     * <p>Java class for null.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * <ul>
+     * <li>CLOSED means that the lock is more thant 50% closed</li>
+     * <li>OPEN means that the lock is less than 50% closed</li>
+     * </ul>
+     * <pre>
+     * &lt;simpleType>
+     *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+     *     &lt;enumeration value="CLOSED"/>
+     *     &lt;enumeration value="OPEN"/>
+     *   &lt;/restriction>
+     * &lt;/simpleType>
+     * </pre>
+     * 
+     */
+    @XmlType(name = "")
+    @XmlEnum
+    public enum State {
+
+        CLOSED,
+        OPEN;
+
+        public String value() {
+            return name();
+        }
+
+        public static Lock.State fromValue(String v) {
+            return valueOf(v);
+        }
+
     }
 
 }

@@ -1,6 +1,7 @@
 package diuf.unifr.ch.first.xwot.rxtx;
 
 import diuf.unifr.ch.first.xwot.rxtx.exception.PortNotFoundException;
+import diuf.unifr.ch.first.xwot.rxtx.listener.RxtxInputListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -11,10 +12,14 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
+import java.util.EventListener;
 import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.EventListenerList;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -65,6 +70,8 @@ public class RxtxConnection {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RxtxConnection.class);
 
     private String line;
+
+    private final EventListenerList rxtxInputLIstener = new EventListenerList();
 
     private RxtxConnection() throws PortInUseException, UnsupportedCommOperationException, IOException {
     }
@@ -140,7 +147,7 @@ public class RxtxConnection {
                     try {
                         String _line = input.readLine();
                         if (!_line.equals("")) {
-                            line = _line;
+                            setLine(line);
                             logger.debug("new line from arduino: " + line);
                         }
                     } catch (IOException e) {
@@ -179,4 +186,29 @@ public class RxtxConnection {
         return line;
     }
 
+    private void setLine(String line) {
+        fireLineChanged(this.line, line);
+        this.line = line;
+    }
+
+    public RxtxInputListener[] getRxtxInputLIstener() {
+        return (RxtxInputListener[]) rxtxInputLIstener.getListenerList();
+    }
+
+    public void addRxtxInputListener(RxtxInputListener listener) {
+        rxtxInputLIstener.add(RxtxInputListener.class, listener);
+    }
+
+    public void removeRxtxInputListener(RxtxInputListener listener) {
+        rxtxInputLIstener.remove(RxtxInputListener.class, listener);
+    }
+
+    protected void fireLineChanged(String oldLine, String newLine) {
+        if(oldLine.equals(newLine)) {
+            return;
+        }
+        for (RxtxInputListener listener : getRxtxInputLIstener()) {
+            listener.jsonChanged(oldLine, newLine);
+        }
+    }
 }

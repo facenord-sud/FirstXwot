@@ -1,5 +1,5 @@
 
-package diuf.unifr.ch.first.xwot.org.w3._2001.xmlschema;
+package org.w3._2001.xmlschema;
 
 import java.net.URI;
 import javax.xml.bind.annotation.adapters.XmlAdapter;

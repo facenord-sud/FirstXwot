@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" xmlns:tns="http://jaxb.xwot.first.ch.unifr.diuf"
-	targetNamespace="http://jaxb.xwot.first.ch.unifr.diuf">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0" xmlns:tns="http://jaxb.xwot.first.ch.unifr.diuf" targetNamespace="http://jaxb.xwot.first.ch.unifr.diuf">
 
 	<xs:annotation>
 		<xs:appinfo>
 			<jaxb:globalBindings>
-				<jaxb:javaType name="java.net.URI" xmlType="xs:anyURI" parseMethod="create"
-					printMethod="toASCIIString"/>
-				<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime" />
+				<jaxb:javaType name="java.net.URI" xmlType="xs:anyURI" parseMethod="create" printMethod="toASCIIString"/>
+				<jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
 			</jaxb:globalBindings>
 			<jaxb:bindings>
-				<jaxb:bindings node="//xs:element[@name='state']/xs:simpleType">
-					<jaxb:typesafeEnumClass name="State" />
+				<jaxb:bindings node="//xs:element[@name='open']/xs:complexType/xs:sequence/xs:element[@name='state']/xs:simpleType">
+					<jaxb:typesafeEnumClass name="State"/>
+				</jaxb:bindings>
+			</jaxb:bindings>
+			<jaxb:bindings>
+				<jaxb:bindings node="//xs:element[@name='lock']/xs:complexType/xs:sequence/xs:element[@name='state']/xs:simpleType">
+					<jaxb:typesafeEnumClass name="State"/>
 				</jaxb:bindings>
 			</jaxb:bindings>
 		</xs:appinfo>
 	</xs:annotation>
-	
+
 	<xs:element name="door">
 		<xs:complexType>
 			<xs:sequence>
@@ -32,40 +34,46 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
+
 	<xs:element name="open">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="tns:speed" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="tns:state" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="tns:position" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="state" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="CLOSING"/>
+							<xs:enumeration value="OPENING"/>
+							<xs:enumeration value="CLOSED"/>
+							<xs:enumeration value="OPEN"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="position" type="xs:int" minOccurs="0" maxOccurs="1"/>
 			</xs:sequence>
-			<xs:attribute name="uri" type="xs:anyURI"/>
+			<xs:attribute name="uri" type="xs:anyURI" use="optional"/>
 		</xs:complexType>
 	</xs:element>
-	
+
 	<xs:element name="lock">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="tns:speed" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="tns:state" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="tns:position" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="state">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="CLOSED"/>
+							<xs:enumeration value="OPEN"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="uri" type="xs:anyURI"/>
+			<xs:attribute name="uri" type="xs:anyURI" use="optional"/>
 		</xs:complexType>
 	</xs:element>
-	
-	<xs:element name="speed" type="xs:int"/>
-	<xs:element name="position" type="xs:int"/>
-	<xs:element name="state">
-		<xs:simpleType>
-			<xs:restriction base="xs:string">
-				<xs:enumeration value="CLOSING"/>
-				<xs:enumeration value="OPENING"/>
-				<xs:enumeration value="CLOSED"/>
-				<xs:enumeration value="OPEN"/>
-				<xs:enumeration value="UNKNOW"/>
-			</xs:restriction>
-		</xs:simpleType>
+	<xs:element name="client">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="uri" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
 	</xs:element>
 </xs:schema>

@@ -19,24 +19,28 @@ public class RxtxUtils {
     
     private ArduinoCommunication aCom;
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RxtxUtils.class);
+    private JsonObject jsonComponent = new JsonObject();
     
     public RxtxUtils() {
         aCom = new ArduinoCommunication();
     }
     
     public <T> T getComponent(Class type, TinkerShield pin) {
-        JsonObject jsonComponent = aCom.read(pin.toString());
-        if(jsonComponent == null) {
+        JsonObject jsonObject = aCom.read(pin.toString());
+        if(jsonObject == null) {
             return null;
         }
-        Object ret_value = aCom.getGson().fromJson(jsonComponent, type); 
+        Object ret_value = aCom.getGson().fromJson(jsonObject, type); 
         return (T) type.cast(ret_value);
     }
     
-    public void setComponent(TinkerShield pin, Object o) {
-        JsonObject jsonComponent = new JsonObject();
+    public void addComponent(TinkerShield pin, Object o) {
         jsonComponent.add(pin.toString(), aCom.getGson().toJsonTree(o));
+    }
+    
+    public void send() {
         aCom.write(jsonComponent);
+        jsonComponent = new JsonObject();
     }
 
     public String getRawJson() {
