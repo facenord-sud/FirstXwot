@@ -34,7 +34,7 @@ public class LockContextResourcePublisherResource {
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json", "text/xml" })
     public Response postLockContextResourcePublisherResourceXML(Client client) {
-        NotificationFactory.getLockNotification().addClient(client);
+        NotificationFactory.getInstance().getLockNotification().addClient(client);
         return Response.ok(client).build();
     }
 

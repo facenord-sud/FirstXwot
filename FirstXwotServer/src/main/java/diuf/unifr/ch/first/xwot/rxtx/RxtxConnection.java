@@ -186,7 +186,7 @@ public class RxtxConnection {
         return line;
     }
 
-    private void setLine(String line) {
+    public void setLine(String line) {
         this.line = line;
         fireLineChanged(this.line, line);
     }

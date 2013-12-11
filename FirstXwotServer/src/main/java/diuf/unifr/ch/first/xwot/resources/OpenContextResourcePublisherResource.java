@@ -33,7 +33,7 @@ public class OpenContextResourcePublisherResource {
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json", "text/xml" })
     public Response postOpenContextResourcePublisherResourceXML(Client client) {
-        NotificationFactory.getOpenNotification().addClient(client);
+        NotificationFactory.getInstance().getOpenNotification().addClient(client);
         return Response.ok(client).build();
     }
 

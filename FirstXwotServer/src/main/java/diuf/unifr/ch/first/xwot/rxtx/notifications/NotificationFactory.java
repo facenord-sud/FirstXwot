@@ -7,15 +7,33 @@ package diuf.unifr.ch.first.xwot.rxtx.notifications;
  */
 public class NotificationFactory {
     
-    private final static OpenNotification openNotification = OpenNotification.getInstance();
-    private final static LockNotification lockNotification = LockNotification.getInstance();
-
-    public static Notification getLockNotification() {
-        return lockNotification;
+    private Notification openNotification = null;
+    private Notification lockNotification = null;
+    private static NotificationFactory instance = null;
+    
+    private NotificationFactory() {}
+    
+    public static synchronized NotificationFactory getInstance() {
+        if(instance == null) {
+            instance = new NotificationFactory();
+        }
+        return instance;
     }
 
-    public static Notification getOpenNotification() {
+    public synchronized Notification getLockNotification() {
+        if(openNotification == null) {
+            openNotification = new Notification();
+            openNotification.setBuilder(new OpenNotificationBuilder());
+        }
         return openNotification;
+    }
+
+    public synchronized Notification getOpenNotification() {
+        if(lockNotification == null) {
+            lockNotification = new Notification();
+            lockNotification.setBuilder(new LockNotificationBuilder());
+        }
+        return lockNotification;
     }
     
     
