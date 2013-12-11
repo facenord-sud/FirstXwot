@@ -6,8 +6,9 @@ package diuf.unifr.ch.first.xwot.rxtx.notifications;
  * @author leo
  */
 public class NotificationFactory {
-    private final static Notification lockNotification = Notification.getInstace();
-    private final static Notification openNotification = Notification.getInstace();
+    
+    private final static OpenNotification openNotification = OpenNotification.getInstance();
+    private final static LockNotification lockNotification = LockNotification.getInstance();
 
     public static Notification getLockNotification() {
         return lockNotification;

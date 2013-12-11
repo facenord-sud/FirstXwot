@@ -15,8 +15,6 @@ import javax.ws.rs.core.Response;
 @Path("/door/lock/pub")
 public class LockContextResourcePublisherResource {
     
-    private final Client c = new Client();
-
     @GET
     @Produces({"application/xml", "application/json", "text/xml" })
     public Response getLockContextResourcePublisherResourceXML() {
@@ -37,7 +35,7 @@ public class LockContextResourcePublisherResource {
     @Produces({"application/xml", "application/json", "text/xml" })
     public Response postLockContextResourcePublisherResourceXML(Client client) {
         NotificationFactory.getLockNotification().addClient(client);
-        return Response.ok(c).build();
+        return Response.ok(client).build();
     }
 
 }

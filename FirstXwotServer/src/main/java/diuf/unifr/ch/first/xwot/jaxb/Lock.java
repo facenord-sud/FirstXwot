@@ -103,6 +103,12 @@ public class Lock {
         this.uri = value;
     }
 
+    public boolean equalsToLock(Lock lock) {
+        return lock.getState().compareTo(this.getState()) == 0;
+    }
+    
+    
+
 
     /**
      * <p>Java class for null.

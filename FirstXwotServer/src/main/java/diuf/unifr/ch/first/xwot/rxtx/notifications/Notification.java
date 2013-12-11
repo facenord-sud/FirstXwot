@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collection;import javax.xml.bind.JAXBContext;
+import java.util.Collection;
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.apache.http.HttpResponse;
@@ -30,20 +31,23 @@ import org.slf4j.LoggerFactory;
 public class Notification {
 
     private final Collection<Client> clients = new ArrayList<Client>();
-    private static  Notification instance = null;
-    private static final DefaultHttpClient httpClient = new DefaultHttpClient();
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Notification.class);
+    private NotificationBuilder builder;
 
-    private Notification() {
+    public Notification() {
+        init();
+    }
+
+    private void init() {
         try {
             RxtxConnection.getInstance().addRxtxInputListener(new RxtxInputListener() {
 
                 @Override
                 public void jsonChanged(String oldJson, String newJsons) {
-                    logger.debug("event cahth");
-                    if (clients.size() >= 1) {
-                        for (Client client : getClients()) {
-                            Notification.notifyClient(client);
+                    if (builder.hasNotification()) {
+                        for (Object o : getClients()) {
+                            Client client = (Client) o;
+                            notifyClient(client);
                         }
                     }
                 }
@@ -57,11 +61,11 @@ public class Notification {
         }
     }
 
-    public static void notifyClient(Client client) {
+    private void notifyClient(Client client) {
         try {
-            logger.debug(client.toString()+"salut");
+            DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost request = new HttpPost(client.getUri());
-            request.setEntity(clientToEntity(client));
+            request.setEntity(builder.jaxbToStringEntity(client));
             HttpResponse response = httpClient.execute(request);
             if (response.getStatusLine().getStatusCode() != 200) {
                 logger.info("Request to client " + client.getUri()
@@ -71,27 +75,7 @@ public class Notification {
             }
         } catch (IOException ex) {
             logger.error("Error during the request to " + client.getUri(), ex);
-
-        } catch (JAXBException ex) {
-            logger.error("Error while encoding client", ex);
         }
-    }
-
-    private static StringEntity clientToEntity(Client client) throws JAXBException, UnsupportedEncodingException {
-        StringWriter writer = new StringWriter();
-        JAXBContext jaxbContext = JAXBContext.newInstance(Client.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.marshal(client, writer);
-        StringEntity body = new StringEntity(writer.getBuffer().toString());
-        body.setContentType("application/xml");
-        return body;
-    }
-
-    public static synchronized Notification getInstace() {
-        if(instance == null) {
-            instance = new Notification();
-        }
-        return instance;
     }
 
     public void addClient(Client client) {
@@ -102,7 +86,11 @@ public class Notification {
         clients.remove(client);
     }
 
-    public Client[] getClients() {
-        return (Client[]) clients.toArray();
+    public Object[] getClients() {
+        return clients.toArray();
+    }
+
+    public void setBuilder(NotificationBuilder builder) {
+        this.builder = builder;
     }
 }

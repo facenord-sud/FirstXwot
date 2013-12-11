@@ -119,6 +119,10 @@ public class Open {
         this.uri = value;
     }
 
+    public boolean equalsToOpen(Open open) {
+        return open != null && open.getState().compareTo(this.getState()) == 0 && open.getPosition() == this.getPosition();
+    }
+
     /**
      * <p>
      * Java class for null.

@@ -71,7 +71,7 @@ public class RxtxConnection {
 
     private String line;
 
-    private final EventListenerList rxtxInputLIstener = new EventListenerList();
+    private final Collection<RxtxInputListener> rxtxInputLIstener = new ArrayList<RxtxInputListener>();
 
     private RxtxConnection() throws PortInUseException, UnsupportedCommOperationException, IOException {
     }
@@ -192,27 +192,27 @@ public class RxtxConnection {
     }
 
     public RxtxInputListener[] getRxtxInputLIstener() {
-        return (RxtxInputListener[]) rxtxInputLIstener.getListenerList();
+        return (RxtxInputListener[]) rxtxInputLIstener.toArray();
     }
 
     public void addRxtxInputListener(RxtxInputListener listener) {
-        rxtxInputLIstener.add(RxtxInputListener.class, listener);
-        logger.debug("listener " + rxtxInputLIstener.getListenerCount());
+        rxtxInputLIstener.add(listener);
+        logger.debug("listener " + rxtxInputLIstener.size());
     }
 
     public void removeRxtxInputListener(RxtxInputListener listener) {
-        rxtxInputLIstener.remove(RxtxInputListener.class, listener);
+        rxtxInputLIstener.remove(listener);
     }
 
     protected void fireLineChanged(String oldLine, String newLine) {
         /*if(oldLine.equals(newLine)) {
             return;
         }*/
-        logger.debug("line changed" + rxtxInputLIstener.getListenerCount());
-        RxtxInputListener[] listeners = getRxtxInputLIstener();
-        int a = 5;
-        for (RxtxInputListener listener : listeners) {
-            logger.debug("linstener notified");
+        //logger.debug("line changed" + rxtxInputLIstener.size());
+        Object[] objects = rxtxInputLIstener.toArray();
+        for (Object o : objects) {
+            //logger.debug("linstener notified");
+            RxtxInputListener listener = (RxtxInputListener) o;
             listener.jsonChanged(oldLine, newLine);
         }
     }

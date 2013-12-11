@@ -8,6 +8,7 @@ import diuf.unifr.ch.first.xwot.jaxb.Lock;
 import diuf.unifr.ch.first.xwot.rxtx.components.ArduinoComponents;
 import diuf.unifr.ch.first.xwot.rxtx.components.ContiniousServo;
 import diuf.unifr.ch.first.xwot.rxtx.components.LinearPotentiometer;
+import diuf.unifr.ch.first.xwot.rxtx.mapper.LockMapper;
 import diuf.unifr.ch.first.xwot.rxtx.utils.RxtxUtils;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -31,12 +32,7 @@ public class LockContextResource {
         if(lp == null) {
             return Response.status(503).entity("try to relaod").build();
         }
-        Lock lock = new Lock();
-        if (lp.getPosition() <= LinearPotentiometer.MIDDLE_POSITION) {
-            lock.setState(Lock.State.OPEN);
-        } else {
-            lock.setState(Lock.State.CLOSED);
-        }
+        Lock lock = new LockMapper(lp).map();
         return Response.ok(lock).build();
     }
 
