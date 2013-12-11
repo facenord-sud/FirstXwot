@@ -28,6 +28,9 @@ public class LockContextResource {
     public Response getLockContextResourceXML() {
         RxtxUtils utils = new RxtxUtils();
         LinearPotentiometer lp = utils.getComponent(LinearPotentiometer.class, ArduinoComponents.LOCK_SENSOR);
+        if(lp == null) {
+            return Response.status(503).entity("try to relaod").build();
+        }
         Lock lock = new Lock();
         if (lp.getPosition() <= LinearPotentiometer.MIDDLE_POSITION) {
             lock.setState(Lock.State.OPEN);

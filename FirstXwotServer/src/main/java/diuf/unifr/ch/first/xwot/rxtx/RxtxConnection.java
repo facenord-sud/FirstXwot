@@ -76,7 +76,7 @@ public class RxtxConnection {
     private RxtxConnection() throws PortInUseException, UnsupportedCommOperationException, IOException {
     }
 
-    public static RxtxConnection getInstance() throws PortInUseException, UnsupportedCommOperationException, IOException {
+    public static synchronized RxtxConnection getInstance() throws PortInUseException, UnsupportedCommOperationException, IOException {
 
         try {
             if (instance == null) {
@@ -147,8 +147,8 @@ public class RxtxConnection {
                     try {
                         String _line = input.readLine();
                         if (!_line.equals("")) {
-                            setLine(line);
-                            logger.debug("new line from arduino: " + line);
+                            setLine(_line);
+                            //logger.debug("new line from arduino: " + line);
                         }
                     } catch (IOException e) {
                         logger.error("IO exception. Are you closing ?", e);
@@ -187,8 +187,8 @@ public class RxtxConnection {
     }
 
     private void setLine(String line) {
-        fireLineChanged(this.line, line);
         this.line = line;
+        fireLineChanged(this.line, line);
     }
 
     public RxtxInputListener[] getRxtxInputLIstener() {
@@ -197,6 +197,7 @@ public class RxtxConnection {
 
     public void addRxtxInputListener(RxtxInputListener listener) {
         rxtxInputLIstener.add(RxtxInputListener.class, listener);
+        logger.debug("listener " + rxtxInputLIstener.getListenerCount());
     }
 
     public void removeRxtxInputListener(RxtxInputListener listener) {
@@ -204,10 +205,14 @@ public class RxtxConnection {
     }
 
     protected void fireLineChanged(String oldLine, String newLine) {
-        if(oldLine.equals(newLine)) {
+        /*if(oldLine.equals(newLine)) {
             return;
-        }
-        for (RxtxInputListener listener : getRxtxInputLIstener()) {
+        }*/
+        logger.debug("line changed" + rxtxInputLIstener.getListenerCount());
+        RxtxInputListener[] listeners = getRxtxInputLIstener();
+        int a = 5;
+        for (RxtxInputListener listener : listeners) {
+            logger.debug("linstener notified");
             listener.jsonChanged(oldLine, newLine);
         }
     }

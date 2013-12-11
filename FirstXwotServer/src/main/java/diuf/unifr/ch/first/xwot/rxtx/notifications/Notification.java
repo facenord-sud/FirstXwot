@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
 public class Notification {
 
     private final Collection<Client> clients = new ArrayList<Client>();
-    private final static Notification instance = new Notification();
-    private final DefaultHttpClient httpClient = new DefaultHttpClient();
+    private static  Notification instance = null;
+    private static final DefaultHttpClient httpClient = new DefaultHttpClient();
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Notification.class);
 
     private Notification() {
@@ -40,9 +40,10 @@ public class Notification {
 
                 @Override
                 public void jsonChanged(String oldJson, String newJsons) {
+                    logger.debug("event cahth");
                     if (clients.size() >= 1) {
                         for (Client client : getClients()) {
-                            notifyClient(client);
+                            Notification.notifyClient(client);
                         }
                     }
                 }
@@ -56,8 +57,9 @@ public class Notification {
         }
     }
 
-    private void notifyClient(Client client) {
+    public static void notifyClient(Client client) {
         try {
+            logger.debug(client.toString()+"salut");
             HttpPost request = new HttpPost(client.getUri());
             request.setEntity(clientToEntity(client));
             HttpResponse response = httpClient.execute(request);
@@ -75,7 +77,7 @@ public class Notification {
         }
     }
 
-    private StringEntity clientToEntity(Client client) throws JAXBException, UnsupportedEncodingException {
+    private static StringEntity clientToEntity(Client client) throws JAXBException, UnsupportedEncodingException {
         StringWriter writer = new StringWriter();
         JAXBContext jaxbContext = JAXBContext.newInstance(Client.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -85,7 +87,10 @@ public class Notification {
         return body;
     }
 
-    public static Notification getInstace() {
+    public static synchronized Notification getInstace() {
+        if(instance == null) {
+            instance = new Notification();
+        }
         return instance;
     }
 

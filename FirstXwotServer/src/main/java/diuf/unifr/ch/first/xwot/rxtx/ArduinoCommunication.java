@@ -60,10 +60,10 @@ public class ArduinoCommunication {
         try {
             jElement = new JsonParser().parse(getConnection().getLine());
         } catch (NullPointerException e) {
-            logger.info("error during communication with arduino. Reload page", e);
+            logger.info("error during communication with arduino. No informations from hardware");
             return null;
         } catch (JsonSyntaxException e) {
-            logger.info("error during communication with arduino. Reload page", e);
+            logger.info("error during communication with arduino. Unable to parse json");
             return null;
         }
         JsonObject jObject = jElement.getAsJsonObject();

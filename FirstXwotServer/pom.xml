@@ -104,6 +104,14 @@
             <version>4.1.1</version>
 	</dependency>
         
+        <!-- Testing stuff -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
+            <!--<scope>test</scope>-->
+        </dependency>
+        
         <!--  Gson: Java to Json conversion and vice versa -->
         <dependency>
             <groupId>com.google.code.gson</groupId>

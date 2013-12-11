@@ -18,6 +18,7 @@ public class LinearPotentiometer {
     public static final int OPEN_POSITION = 0;
     public static final int CLOSED_POSITION = 1023;
     public static final int MIDDLE_POSITION = 511;
+    public static final int ERROR = 15;
 
     public int getPosition() {
         return position;
@@ -36,8 +37,9 @@ public class LinearPotentiometer {
     }
 
     /**
-     * The difference between the old and the new position of the door.
-     * the calcul is : oldPosition-newPosition
+     * The difference between the old and the new position of the door. the
+     * calcul is : oldPosition-newPosition
+     *
      * @return smaller than 0 if door is closing
      * <br/> 0 if door is not closing or not opening
      * <br/> bigger than 0 if door is opening
@@ -48,7 +50,8 @@ public class LinearPotentiometer {
 
     /**
      * To know if the door is closing or not
-     * @return true if the door is closing. Else return false, as well when the 
+     *
+     * @return true if the door is closing. Else return false, as well when the
      * door is not moving
      */
     public boolean isClosing() {
@@ -60,13 +63,22 @@ public class LinearPotentiometer {
 
     /**
      * The postition of the door in percent
+     *
      * @return the position of the door in percent
      */
     public int getPercentPosition() {
-        return (position / CLOSED_POSITION) * 100;
+        return Math.round(((float)position/(float)CLOSED_POSITION)*100);
     }
-    
+
     public void setFromPercentPosition(int percent) {
         position = (percent / 100) * 1023;
     }
+
+    @Override
+    public String toString() {
+        return "LinearPotentiometer{" + "oldPosition=" + oldPosition + ", "
+                + "position=" + position + ", percentPosition=" + 
+                getPercentPosition() + ", isClosing=" + isClosing()+", difference="+getDifference();
+    }
+
 }
