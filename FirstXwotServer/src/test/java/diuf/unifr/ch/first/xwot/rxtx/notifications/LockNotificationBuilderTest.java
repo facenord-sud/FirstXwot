@@ -26,12 +26,12 @@ import static org.junit.Assert.*;
  * @author leo
  */
 public class LockNotificationBuilderTest {
+   
+    private RxtxConnection rxtx;
     
     public LockNotificationBuilderTest() {
         try {
-            RxtxConnection.getInstance().setLine("{\"9\":{\"speed\":60},\"10\":"
-                    + "{\"speed\":93}, \"14\":{\"oldPosition\":511, \"position\""
-                    + ":1023}}, \"15\":{\"oldPosition\":511, \"position\":1023}");
+            rxtx = RxtxConnection.getInstance();
         } catch (PortInUseException ex) {
             Logger.getLogger(LockNotificationBuilderTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedCommOperationException ex) {
@@ -62,13 +62,7 @@ public class LockNotificationBuilderTest {
      */
     @Test
     public void testHasNotification() {
-        System.out.println("hasNotification");
-        LockNotificationBuilder instance = new LockNotificationBuilder();
-        boolean expResult = false;
-        boolean result = instance.hasNotification();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -77,6 +71,10 @@ public class LockNotificationBuilderTest {
     @Test
     public void testJaxbToStringEntity() {
         System.out.println("jaxbToStringEntity");
+        rxtx.setLine("{\"9\":{\"speed\":60},\"10\":"
+                    + "{\"speed\":93}, \"14\":{\"oldPosition\":511, \"position\""
+                    + ":1023}}, \"15\":{\"oldPosition\":511, \"position\":1023}");
+        System.out.println(rxtx.getLine());
         Client client = new Client();
         LockNotificationBuilder instance = new LockNotificationBuilder();
         StringEntity result = instance.jaxbToStringEntity(client);

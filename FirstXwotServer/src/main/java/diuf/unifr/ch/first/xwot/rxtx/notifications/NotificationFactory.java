@@ -23,7 +23,7 @@ public class NotificationFactory {
     public synchronized Notification getLockNotification() {
         if(openNotification == null) {
             openNotification = new Notification();
-            openNotification.setBuilder(new OpenNotificationBuilder());
+            openNotification.setBuilder(new LockNotificationBuilder());
         }
         return openNotification;
     }
@@ -31,7 +31,7 @@ public class NotificationFactory {
     public synchronized Notification getOpenNotification() {
         if(lockNotification == null) {
             lockNotification = new Notification();
-            lockNotification.setBuilder(new LockNotificationBuilder());
+            lockNotification.setBuilder(new OpenNotificationBuilder());
         }
         return lockNotification;
     }

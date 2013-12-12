@@ -104,7 +104,7 @@ public class Lock {
     }
 
     public boolean equalsToLock(Lock lock) {
-        return lock.getState().compareTo(this.getState()) == 0;
+        return lock != null && lock.getState() != null && lock.getState().compareTo(this.getState()) == 0;
     }
     
     

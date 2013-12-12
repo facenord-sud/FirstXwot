@@ -28,8 +28,7 @@ public class OpenNotificationBuilder extends NotificationBuilder {
 
     @Override
     public boolean hasNotification() {
-        LinearPotentiometer lp = new RxtxUtils().getComponent(LinearPotentiometer.class, ArduinoComponents.OPEN_SENSOR);
-        open = new OpenMapper(lp).map();
+        setOpen();
         if (open.equalsToOpen(oldOpen)) {
             return false;
         }
@@ -40,11 +39,11 @@ public class OpenNotificationBuilder extends NotificationBuilder {
     @Override
     public StringEntity jaxbToStringEntity(Client client) {
         StringEntity body = null;
-        if (open == null || open.equalsToOpen(oldOpen)) {
+        if (open == null || !open.equalsToOpen(oldOpen)) {
             setOpen();
         }
         try {
-            body = new StringEntity(jaxbToJson(open));
+            body = new StringEntity(jaxbToXml(Open.class, open));
             body.setContentType("application/xml");
         } catch (UnsupportedEncodingException ex) {
             logger.error("Unable to encode StringEntity", ex);
@@ -53,7 +52,7 @@ public class OpenNotificationBuilder extends NotificationBuilder {
     }
 
     private void setOpen() {
-        LinearPotentiometer lp = new RxtxUtils().getComponent(LinearPotentiometer.class, ArduinoComponents.LOCK_SENSOR);
+        LinearPotentiometer lp = new RxtxUtils().getComponent(LinearPotentiometer.class, ArduinoComponents.OPEN_SENSOR);
         open = new OpenMapper(lp).map();
     }
 

@@ -53,13 +53,9 @@ public class NotificationBuilderTest extends TestHelpers {
         Open open = new Open();
         open.setPosition(50);
         open.setState(Open.State.OPEN);
-        try {
-            String response = nbi.jaxbToXml(Open.class, open);
-            assertXmlResponse(response);
-            System.out.println(response);
-        } catch (JAXBException ex) {
-            Logger.getLogger(NotificationBuilderTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String response = nbi.jaxbToXml(Open.class, open);
+        assertXmlResponse(response);
+        System.out.println(response);
     }
 
     @Test
