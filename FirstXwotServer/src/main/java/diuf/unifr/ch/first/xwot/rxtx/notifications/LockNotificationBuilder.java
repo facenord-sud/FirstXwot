@@ -12,12 +12,12 @@ import diuf.unifr.ch.first.xwot.rxtx.components.LinearPotentiometer;
 import diuf.unifr.ch.first.xwot.rxtx.mapper.LockMapper;
 import diuf.unifr.ch.first.xwot.rxtx.utils.RxtxUtils;
 import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Implementation of the class NotificationBuilder<br/>
+ * Responsible to manage the notification of the lock context
  *
  * @author leo
  */
@@ -31,6 +31,12 @@ public class LockNotificationBuilder extends NotificationBuilder {
         logger.debug("LockNotificationBuilder Initialized");
     }
 
+    /**
+     * Determine if the state of the lock context has changed
+     * 
+     * @see Lock
+     * @return <code>true</code> if a the lock context has changed after the last call of this method. <code>false</code> otherwise.
+     */
     @Override
     public boolean hasNotification() {
         setLock();
@@ -46,9 +52,11 @@ public class LockNotificationBuilder extends NotificationBuilder {
     }
 
     /**
-     *
+     * Encode into xml the Lock JAXB class
+     * 
+     * @see Lock
      * @param client
-     * @return
+     * @return instance of a StringEntity containg xml informations
      */
     @Override
     public StringEntity jaxbToStringEntity(Client client) {

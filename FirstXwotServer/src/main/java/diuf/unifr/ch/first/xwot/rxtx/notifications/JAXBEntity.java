@@ -18,6 +18,7 @@ import org.apache.http.entity.AbstractHttpEntity;
 
 /**
  * from http://mail-archives.apache.org/mod_mbox/hc-httpclient-users/201205.mbox/%3C1336131004.13924.16.camel@ubuntu%3E
+ * Not used
  * @author leo
  */
 class JAXBEntity extends AbstractHttpEntity {

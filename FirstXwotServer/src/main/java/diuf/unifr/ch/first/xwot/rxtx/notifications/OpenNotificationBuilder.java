@@ -9,7 +9,6 @@ import diuf.unifr.ch.first.xwot.jaxb.Client;
 import diuf.unifr.ch.first.xwot.jaxb.Open;
 import diuf.unifr.ch.first.xwot.rxtx.components.ArduinoComponents;
 import diuf.unifr.ch.first.xwot.rxtx.components.LinearPotentiometer;
-import diuf.unifr.ch.first.xwot.rxtx.mapper.LockMapper;
 import diuf.unifr.ch.first.xwot.rxtx.mapper.OpenMapper;
 import diuf.unifr.ch.first.xwot.rxtx.utils.RxtxUtils;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +16,8 @@ import org.apache.http.entity.StringEntity;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Implementation of the class NotificationBuilder<br/>
+ * Responsible to manage the notification of the lock context
  *
  * @author leo
  */
@@ -26,6 +27,12 @@ public class OpenNotificationBuilder extends NotificationBuilder {
     private Open open;
     private Open oldOpen;
 
+    /**
+     * Determine if the state or the position of the open context has changed
+     * 
+     * @see Open
+     * @return <code>true</code> if a the open context has changed after the last call of this method. <code>false</code> otherwise.
+     */
     @Override
     public boolean hasNotification() {
         setOpen();
@@ -36,6 +43,13 @@ public class OpenNotificationBuilder extends NotificationBuilder {
         return true;
     }
 
+    /**
+     * Encode into xml the Open JAXB class
+     * 
+     * @see Open
+     * @param client
+     * @return instance of a StringEntity containg xml informations
+     */
     @Override
     public StringEntity jaxbToStringEntity(Client client) {
         StringEntity body = null;
@@ -51,6 +65,9 @@ public class OpenNotificationBuilder extends NotificationBuilder {
         return body;
     }
 
+    /**
+     * Fetch information from the json string hardware and put it in the Open JAXB class
+     */
     private void setOpen() {
         LinearPotentiometer lp = new RxtxUtils().getComponent(LinearPotentiometer.class, ArduinoComponents.OPEN_SENSOR);
         open = new OpenMapper(lp).map();
