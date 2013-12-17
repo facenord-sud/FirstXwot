@@ -71,7 +71,7 @@ public class LinearPotentiometer {
     }
 
     public void setFromPercentPosition(int percent) {
-        position = (percent / 100) * 1023;
+        position = Math.round(((float)percent / (float)100) * 1023);
     }
 
     @Override

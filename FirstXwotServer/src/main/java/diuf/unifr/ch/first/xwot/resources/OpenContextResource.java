@@ -64,11 +64,12 @@ public class OpenContextResource {
 
         // l'utilisateur indique une position
         if (open.getState() == null) {
+            int actualPosition = lp.getPercentPosition();
             lp.setOldPosition(lp.getPosition());
             lp.setFromPercentPosition(open.getPosition());
-            if (lp.isClosing()) {
+            if (actualPosition < open.getPosition()) {
                 cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
-            } else if (!lp.isClosing() && lp.getDifference() != 0) {
+            } else if (actualPosition > open.getPosition()) {
                 cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
             } else {
                 cs.setSpeed(ContiniousServo.NULL_SPEED);
@@ -83,8 +84,8 @@ public class OpenContextResource {
                 cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
             }
         }
-        utils.addComponent(ArduinoComponents.LOCK_SERVO, cs);
-        utils.addComponent(ArduinoComponents.LOCK_SENSOR, lp);
+        utils.addComponent(ArduinoComponents.OPEN_SERVO, cs);
+        utils.addComponent(ArduinoComponents.OPEN_SENSOR, lp);
         utils.send();
         return Response.ok().build();
     }
