@@ -4,7 +4,7 @@
 package diuf.unifr.ch.first.xwot.resources;
 
 import diuf.unifr.ch.first.xwot.jaxb.Client;
-import diuf.unifr.ch.first.xwot.rxtx.notifications.NotificationFactory;
+import diuf.unifr.ch.first.xwot.notifications.NotificationFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

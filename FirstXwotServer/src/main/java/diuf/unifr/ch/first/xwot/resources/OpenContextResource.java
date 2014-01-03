@@ -6,10 +6,10 @@ package diuf.unifr.ch.first.xwot.resources;
 
 import diuf.unifr.ch.first.xwot.jaxb.Open;
 import diuf.unifr.ch.first.xwot.rxtx.RxtxConnection;
-import diuf.unifr.ch.first.xwot.rxtx.components.ArduinoComponents;
-import diuf.unifr.ch.first.xwot.rxtx.components.ContiniousServo;
-import diuf.unifr.ch.first.xwot.rxtx.components.LinearPotentiometer;
-import diuf.unifr.ch.first.xwot.rxtx.mapper.OpenMapper;
+import diuf.unifr.ch.first.xwot.components.ArduinoComponents;
+import diuf.unifr.ch.first.xwot.components.ContiniousServo;
+import diuf.unifr.ch.first.xwot.components.LinearPotentiometer;
+import diuf.unifr.ch.first.xwot.mapper.OpenMapper;
 import diuf.unifr.ch.first.xwot.rxtx.utils.RxtxUtils;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;

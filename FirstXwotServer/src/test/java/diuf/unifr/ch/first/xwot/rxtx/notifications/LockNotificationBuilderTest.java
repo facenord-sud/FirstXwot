@@ -6,6 +6,7 @@
 
 package diuf.unifr.ch.first.xwot.rxtx.notifications;
 
+import diuf.unifr.ch.first.xwot.notifications.LockNotificationBuilder;
 import diuf.unifr.ch.first.xwot.jaxb.Client;
 import diuf.unifr.ch.first.xwot.rxtx.RxtxConnection;
 import gnu.io.PortInUseException;

@@ -41,8 +41,7 @@ public class RxtxConnection {
         "/dev/ttyUSB0", // Linux
         "/dev/ttyACM0", // debian/raspbian
         "/dev/ttyAMA0", // debian/raspbian
-        "/dev/ttyprintk", // debian/raspbian
-        "/dev/ttyS1", // debian/raspbian
+        "/dev/ttys001", // test
         "COM3", // Windows
     };
 
@@ -105,6 +104,7 @@ public class RxtxConnection {
         while (portEnum.hasMoreElements()) {
             CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
             for (String portName : PORT_NAMES) {
+                logger.debug(portName + " == " + currPortId.getName());
                 if (currPortId.getName().equals(portName)) {
                     portId = currPortId;
                     break;
@@ -145,10 +145,11 @@ public class RxtxConnection {
             public void serialEvent(SerialPortEvent spEvent) {
                 if (spEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
                     try {
+                        logger.debug("new line from arduino: ");
                         String _line = input.readLine();
                         if (!_line.equals("")) {
                             setLine(_line);
-                            //logger.debug("new line from arduino: " + line);
+                            logger.debug("new line from arduino: " + line);
                         }
                     } catch (IOException e) {
                         logger.error("IO exception. Are you closing ?", e);

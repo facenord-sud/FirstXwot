@@ -1,4 +1,4 @@
-package monitoring.listener;
+package diuf.unifr.ch.first.xwot.monitoring.listener;
 
 
 import com.sun.jersey.api.model.AbstractResourceModelContext;

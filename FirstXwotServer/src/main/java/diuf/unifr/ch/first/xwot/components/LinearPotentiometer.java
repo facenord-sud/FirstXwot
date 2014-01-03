@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diuf.unifr.ch.first.xwot.rxtx.components;
+package diuf.unifr.ch.first.xwot.components;
 
 /**
  * 0 mean fully open 1023 mean fully closed

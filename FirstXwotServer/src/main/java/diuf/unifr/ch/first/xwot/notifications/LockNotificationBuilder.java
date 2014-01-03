@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package diuf.unifr.ch.first.xwot.rxtx.notifications;
+package diuf.unifr.ch.first.xwot.notifications;
 
 import diuf.unifr.ch.first.xwot.jaxb.Client;
 import diuf.unifr.ch.first.xwot.jaxb.Lock;
-import diuf.unifr.ch.first.xwot.rxtx.components.ArduinoComponents;
-import diuf.unifr.ch.first.xwot.rxtx.components.LinearPotentiometer;
-import diuf.unifr.ch.first.xwot.rxtx.mapper.LockMapper;
+import diuf.unifr.ch.first.xwot.components.ArduinoComponents;
+import diuf.unifr.ch.first.xwot.components.LinearPotentiometer;
+import diuf.unifr.ch.first.xwot.mapper.LockMapper;
+import diuf.unifr.ch.first.xwot.rxtx.notifications.NotificationBuilder;
 import diuf.unifr.ch.first.xwot.rxtx.utils.RxtxUtils;
 import java.io.UnsupportedEncodingException;
 import org.apache.http.entity.StringEntity;

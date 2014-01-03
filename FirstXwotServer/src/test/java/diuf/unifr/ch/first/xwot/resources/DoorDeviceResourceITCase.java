@@ -20,11 +20,11 @@ import utils.TestHelpers;
  *
  * @author leo
  */
-public class DoorDeviceResourceTest extends TestHelpers{
+public class DoorDeviceResourceITCase extends TestHelpers{
     
     
     
-    public DoorDeviceResourceTest() {
+    public DoorDeviceResourceITCase() {
     }
     
     @BeforeClass

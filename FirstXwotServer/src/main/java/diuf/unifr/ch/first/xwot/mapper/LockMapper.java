@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package diuf.unifr.ch.first.xwot.rxtx.mapper;
+package diuf.unifr.ch.first.xwot.mapper;
 
 import diuf.unifr.ch.first.xwot.jaxb.Lock;
-import diuf.unifr.ch.first.xwot.rxtx.components.LinearPotentiometer;
+import diuf.unifr.ch.first.xwot.components.LinearPotentiometer;
 
 /**
  *

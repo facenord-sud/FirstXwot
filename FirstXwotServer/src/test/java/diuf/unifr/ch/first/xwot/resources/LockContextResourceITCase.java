@@ -22,9 +22,9 @@ import utils.TestHelpers;
  *
  * @author leo
  */
-public class LockContextResourceTest extends TestHelpers{
+public class LockContextResourceITCase extends TestHelpers{
     
-    public LockContextResourceTest() {
+    public LockContextResourceITCase() {
     }
     
     @BeforeClass

@@ -1,5 +1,7 @@
 
-package diuf.unifr.ch.first.xwot.rxtx.notifications;
+package diuf.unifr.ch.first.xwot.notifications;
+
+import diuf.unifr.ch.first.xwot.rxtx.notifications.Notification;
 
 /**
  * Factory needed to manage all the type of notification in this project.<br/>
