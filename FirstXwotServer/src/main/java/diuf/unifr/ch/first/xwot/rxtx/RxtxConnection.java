@@ -35,13 +35,12 @@ public class RxtxConnection {
     /**
      * The port we're normally going to use.
      */
-    private static final String PORT_NAMES[] = {
+    private static String PORT_NAMES[] = {
         "/dev/tty.usbmodem1421",// Mac OS X 10.8
         "/dev/tty.usbmodem1411",// Mac OS X 10.9
         "/dev/ttyUSB0", // Linux
         "/dev/ttyACM0", // debian/raspbian
         "/dev/ttyAMA0", // debian/raspbian
-        "/dev/ttys001", // test
         "COM3", // Windows
     };
 
@@ -92,6 +91,12 @@ public class RxtxConnection {
     }
 
     private void initialize() throws PortInUseException, UnsupportedCommOperationException, IOException, PortNotFoundException {
+        String testPort = System.getProperty("xwot.test.port");
+        logger.debug(testPort);
+        if(testPort != null && !testPort.equals("")) {
+            PORT_NAMES = new String[1];
+            PORT_NAMES[0] = testPort;
+        }
         CommPortIdentifier portId = null;
         Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
         logger.debug("looking for ports...");
