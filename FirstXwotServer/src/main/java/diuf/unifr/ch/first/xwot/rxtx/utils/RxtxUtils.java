@@ -46,4 +46,8 @@ public class RxtxUtils {
     public String getRawJson() {
         return aCom.getConnection().getLine();
     }
+
+    public JsonObject getJsonComponent() {
+        return jsonComponent;
+    }
 }

@@ -60,14 +60,15 @@ public class ConnectionSimulator {
     }
     
     public void stop() {
-        process.destroy();
-        System.setProperty("gnu.io.rxtx.SerialPorts", "");
-        System.setProperty("xwot.test.port", "");
         if(hardware != null) {
+            hardware.speak("");
             hardware.close();
             hardware = null;
            // System.out.println("closing");
         }
+        process.destroy();
+        System.setProperty("gnu.io.rxtx.SerialPorts", "");
+        System.setProperty("xwot.test.port", "");
     }
     
     public HardwareSpeaker getHardwareSpeaker() {

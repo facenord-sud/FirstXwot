@@ -23,25 +23,6 @@ import utils.TestHelpers;
  * @author leo
  */
 public class LockContextResourceITCase extends TestHelpers{
-    
-    public LockContextResourceITCase() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of getLockContextResourceXML method, of class LockContextResource.
@@ -63,7 +44,6 @@ public class LockContextResourceITCase extends TestHelpers{
     }
     
     /**
-     * Utility method for checking if a given string represents in fact a valid XML Tasks element.
      * @param response The string to check.
      */
     @Override
