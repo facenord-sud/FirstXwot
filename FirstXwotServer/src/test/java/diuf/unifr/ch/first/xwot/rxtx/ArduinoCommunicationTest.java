@@ -7,6 +7,7 @@
 package diuf.unifr.ch.first.xwot.rxtx;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
@@ -56,31 +57,17 @@ public class ArduinoCommunicationTest extends  TestHelpers{
      */
     @Test
     public void testRead() {
-       
-    }
-
-    /**
-     * Test of getConnection method, of class ArduinoCommunication.
-     */
-    @Test
-    public void testGetConnection() {
-        
-    }
-
-    /**
-     * Test of setConnection method, of class ArduinoCommunication.
-     */
-    @Test
-    public void testSetConnection() {
-       
-    }
-
-    /**
-     * Test of getGson method, of class ArduinoCommunication.
-     */
-    @Test
-    public void testGetGson() {
-       
+        ArduinoCommunication com = new ArduinoCommunication();
+        Gson gson = new Gson();
+        JsonObject json = new JsonObject();
+        SimpleClass simple = new SimpleClass();
+        JsonElement world = gson.toJsonTree(simple);
+        json.add("1", world);
+        hardware.speak(json.toString());
+        assertEquals("Should be equal", world.toString(), com.read("1").toString());
     }
     
+    class SimpleClass {
+        String world = "world";
+    }
 }

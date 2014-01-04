@@ -56,7 +56,6 @@ public class RxtxConnectionTest extends TestHelpers{
             
             String hello = "hello world";
             RxtxConnection con = RxtxConnection.getInstance();
-            assertNull("line should be null", con.getLine());
             hardware.speak(hello);
             assertEquals("line should be equals to '" + hello + "'", con.getLine(), hello);
         } catch (PortInUseException ex) {
