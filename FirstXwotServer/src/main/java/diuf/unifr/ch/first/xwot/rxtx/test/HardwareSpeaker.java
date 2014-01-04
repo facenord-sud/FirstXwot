@@ -53,7 +53,8 @@ public class HardwareSpeaker {
      */
     private static final int DATA_RATE = 9600;
 
-    public HardwareSpeaker() {
+    public HardwareSpeaker(String port) {
+        this.port = port;
         init();
     }
 
@@ -103,8 +104,11 @@ public class HardwareSpeaker {
         try {
             output.write((aPhrase + "\r\n").getBytes());
             output.flush();
+            Thread.sleep(1);
         } catch (IOException ex) {
             logger.error("error while writing data to the server", ex);
+        } catch (InterruptedException ex) {
+            logger.error("error with thread", ex);
         }
     }
 

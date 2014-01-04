@@ -67,14 +67,6 @@ public class RxtxConnectionTest {
     }
 
     /**
-     * Test of close method, of class RxtxConnection.
-     */
-    @Test
-    public void testClose() {
-
-    }
-
-    /**
      * Test of getLine method, of class RxtxConnection.
      */
     @Test
@@ -85,7 +77,7 @@ public class RxtxConnectionTest {
             RxtxConnection con = RxtxConnection.getInstance();
             assertNull("line should be null", con.getLine());
             h.speak(hello);
-            assertEquals("line shoukd be equals to " + hello, con.getLine(), hello);
+            assertEquals("line shoukd be equals to '" + hello + "'", con.getLine(), hello);
         } catch (PortInUseException ex) {
             Logger.getLogger(RxtxConnectionTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedCommOperationException ex) {

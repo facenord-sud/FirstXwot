@@ -66,7 +66,7 @@ public class ConnectionSimulator {
     
     public HardwareSpeaker getHardwareSpeaker() {
         if(hardware == null) {
-            hardware = new HardwareSpeaker();
+            hardware = new HardwareSpeaker(master);
         }
         return hardware;
     }
