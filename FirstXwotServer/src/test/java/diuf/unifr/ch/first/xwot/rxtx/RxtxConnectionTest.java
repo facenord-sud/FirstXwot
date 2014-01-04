@@ -13,39 +13,20 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import utils.TestHelpers;
 
 /**
  *
  * @author leo
  */
-public class RxtxConnectionTest {
+public class RxtxConnectionTest extends TestHelpers{
 
-    private static ConnectionSimulator sim;
 
     public RxtxConnectionTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-        sim = new ConnectionSimulator();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-        sim.stop();
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
+        
     }
 
     /**
@@ -72,12 +53,12 @@ public class RxtxConnectionTest {
     @Test
     public void testGetLine() {
         try {
+            
             String hello = "hello world";
-            HardwareSpeaker h = sim.getHardwareSpeaker();
             RxtxConnection con = RxtxConnection.getInstance();
             assertNull("line should be null", con.getLine());
-            h.speak(hello);
-            assertEquals("line shoukd be equals to '" + hello + "'", con.getLine(), hello);
+            hardware.speak(hello);
+            assertEquals("line should be equals to '" + hello + "'", con.getLine(), hello);
         } catch (PortInUseException ex) {
             Logger.getLogger(RxtxConnectionTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedCommOperationException ex) {

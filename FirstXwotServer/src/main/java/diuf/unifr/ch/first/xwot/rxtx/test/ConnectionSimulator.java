@@ -21,10 +21,15 @@ public class ConnectionSimulator {
     private String master;
     private Process process;
     private HardwareSpeaker hardware;
+    private static final ConnectionSimulator instance = new ConnectionSimulator();
 
     public ConnectionSimulator() {
         initFromOs();
         startSocat();
+    }
+    
+    public static synchronized ConnectionSimulator getInstance() {
+        return instance;
     }
 
     private void initFromOs() {
@@ -61,6 +66,7 @@ public class ConnectionSimulator {
         if(hardware != null) {
             hardware.close();
             hardware = null;
+           // System.out.println("closing");
         }
     }
     

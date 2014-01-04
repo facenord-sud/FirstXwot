@@ -10,8 +10,14 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import diuf.unifr.ch.first.xwot.rxtx.test.ConnectionSimulator;
+import diuf.unifr.ch.first.xwot.rxtx.test.HardwareSpeaker;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.junit.AfterClass;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -22,6 +28,19 @@ public class TestHelpers {
     private Client client;
     private WebResource webResource;
     private static final String BASE_URI = "http://0.0.0.0:9090/FirstXwotServer/resources/";
+    protected static ConnectionSimulator simulator;
+    protected static HardwareSpeaker hardware;
+    
+    @BeforeClass
+    public static void setUpClass() {
+        simulator = new ConnectionSimulator();
+        hardware = simulator.getHardwareSpeaker();
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+        simulator.stop();
+    }
     
    /**
      * Utility method which creates a new jersey-client.
