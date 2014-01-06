@@ -115,7 +115,7 @@ public class HardwareSpeaker {
     public synchronized String listen() {
 
         try {
-            char[] buff = new char[1024];
+            char[] buff = new char[10000];
             // reads to the end of the stream 
             // converts int to character
             int value = input.read(buff);

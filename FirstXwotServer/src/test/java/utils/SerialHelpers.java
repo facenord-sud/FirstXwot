@@ -5,10 +5,19 @@
  */
 package utils;
 
+import diuf.unifr.ch.first.xwot.rxtx.RxtxConnection;
 import diuf.unifr.ch.first.xwot.rxtx.test.ConnectionSimulator;
 import diuf.unifr.ch.first.xwot.rxtx.test.HardwareSpeaker;
+import gnu.io.PortInUseException;
+import gnu.io.UnsupportedCommOperationException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -18,17 +27,28 @@ public class SerialHelpers extends TestHelpers {
 
     protected static ConnectionSimulator simulator;
     protected static HardwareSpeaker hardware;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SerialHelpers.class);
 
     @Before
-    public void setUpTest() {
-        simulator = new ConnectionSimulator();
-        hardware = simulator.getHardwareSpeaker();
-
+    public  void setUpTest() {
+        try {
+            simulator = new ConnectionSimulator();
+            hardware = simulator.getHardwareSpeaker();
+            logger.debug("serial simulation and hardware are started");
+            RxtxConnection.getInstance();
+        } catch (PortInUseException ex) {
+            Logger.getLogger(SerialHelpers.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedCommOperationException ex) {
+            Logger.getLogger(SerialHelpers.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SerialHelpers.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @After
-    public void tearDownTest() {
+    public  void tearDownTest() {
         simulator.stop();
+        logger.debug("serial simulation and hardware are stoped");
     }
 
 }

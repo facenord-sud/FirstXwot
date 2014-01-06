@@ -8,7 +8,6 @@ package utils;
 
 import diuf.unifr.ch.first.xwot.components.ArduinoComponents;
 import diuf.unifr.ch.first.xwot.components.LinearPotentiometer;
-import diuf.unifr.ch.first.xwot.jaxb.Lock;
 import diuf.unifr.ch.first.xwot.rxtx.test.AbstractJaxbFactory;
 import diuf.unifr.ch.first.xwot.rxtx.test.HardwareSpeaker;
 

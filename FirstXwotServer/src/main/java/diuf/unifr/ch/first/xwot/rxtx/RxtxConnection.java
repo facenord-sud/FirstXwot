@@ -150,7 +150,6 @@ public class RxtxConnection {
             public void serialEvent(SerialPortEvent spEvent) {
                 if (spEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
                     try {
-                        logger.debug("new line from arduino: ");
                         String _line = input.readLine();
                         if (!_line.equals("")) {
                             setLine(_line);
@@ -173,6 +172,10 @@ public class RxtxConnection {
         if (serialPort != null) {
             serialPort.removeEventListener();
             serialPort.close();
+            serialPort = null;
+        }
+        if(instance != null) {
+            instance = null;
         }
     }
 
