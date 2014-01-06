@@ -5,9 +5,11 @@
  */
 package diuf.unifr.ch.first.xwot.rxtx.test;
 
+import diuf.unifr.ch.first.xwot.rxtx.RxtxConnection;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -21,6 +23,7 @@ public class ConnectionSimulator {
     private String master;
     private Process process;
     private HardwareSpeaker hardware;
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ConnectionSimulator.class);
     private static final ConnectionSimulator instance = new ConnectionSimulator();
 
     public ConnectionSimulator() {
@@ -32,9 +35,8 @@ public class ConnectionSimulator {
         return instance;
     }
 
-    private void initFromOs() {
+    private synchronized void initFromOs() {
         String os = System.getProperty("os.name").toLowerCase();
-        System.out.println(os);
         if (os.equals("Linux")) {
             //TODO
             throw new NotImplementedException();
@@ -50,30 +52,33 @@ public class ConnectionSimulator {
         }
     }
 
-    private void startSocat() {
+    private synchronized void startSocat() {
         Runtime runtime = Runtime.getRuntime();
         try {
             process = runtime.exec(exec);
         } catch (IOException ex) {
             Logger.getLogger(ConnectionSimulator.class.getName()).log(Level.SEVERE, null, ex);
         }
+        logger.debug("socat strated");
     }
     
-    public void stop() {
+    public synchronized void stop() {
         if(hardware != null) {
             hardware.speak("");
             hardware.close();
             hardware = null;
-           // System.out.println("closing");
+            logger.debug("closing hardware speaker");
         }
         process.destroy();
         System.setProperty("gnu.io.rxtx.SerialPorts", "");
         System.setProperty("xwot.test.port", "");
+        logger.debug("stopping socat and setting default system properties");
     }
     
     public HardwareSpeaker getHardwareSpeaker() {
         if(hardware == null) {
             hardware = new HardwareSpeaker(master);
+            logger.debug("Hardware speaker initialized");
         }
         return hardware;
     }

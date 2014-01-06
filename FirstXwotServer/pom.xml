@@ -97,6 +97,7 @@
         </dependency>
         -->
         
+        
         <!-- Apache http client -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -298,7 +299,7 @@
         <plugins>
             
             <!--rxtx plugin-->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2</version>
@@ -317,7 +318,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -402,6 +403,12 @@
                         <configuration>
                             <scanIntervalSeconds>0</scanIntervalSeconds>
                             <daemon>true</daemon>
+                            <systemProperties>
+                                <systemProperty>
+                                    <name>diuf.unifr.xwot.start-serial-simulation</name>
+                                    <value>true</value>
+                                </systemProperty>
+                            </systemProperties>
                         </configuration>
                     </execution>
                     <execution>

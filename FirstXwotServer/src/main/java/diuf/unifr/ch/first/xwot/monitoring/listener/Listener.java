@@ -1,9 +1,9 @@
 package diuf.unifr.ch.first.xwot.monitoring.listener;
 
-
 import com.sun.jersey.api.model.AbstractResourceModelContext;
 import com.sun.jersey.api.model.AbstractResourceModelListener;
 import diuf.unifr.ch.first.xwot.rxtx.RxtxConnection;
+import diuf.unifr.ch.first.xwot.rxtx.test.ConnectionSimulator;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
@@ -16,6 +16,17 @@ public class Listener implements AbstractResourceModelListener {
 
     @Override
     public void onLoaded(AbstractResourceModelContext modelContext) {
+        String test = System.getProperty("diuf.unifr.xwot.start-serial-simulation");
+        if (test != null && test.equals("true")) {
+            ConnectionSimulator.getInstance();
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+
+                @Override
+                public void run() {
+                    ConnectionSimulator.getInstance().stop();
+                }
+            });
+        }
         try {
             RxtxConnection.getInstance();
         } catch (PortInUseException ex) {

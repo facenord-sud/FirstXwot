@@ -8,6 +8,7 @@ import diuf.unifr.ch.first.xwot.notifications.NotificationFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
@@ -29,11 +30,11 @@ public class OpenContextResourcePublisherResource {
         return null;
     }
 
-    @POST
+    @PUT
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json", "text/xml" })
     public Response postOpenContextResourcePublisherResourceXML(Client client) {
-        NotificationFactory.getInstance().getOpenNotification().addClient(client);
+        NotificationFactory.getInstance().getOpenNotification().addClient(client.getUri(), client);
         return Response.ok(client).build();
     }
 

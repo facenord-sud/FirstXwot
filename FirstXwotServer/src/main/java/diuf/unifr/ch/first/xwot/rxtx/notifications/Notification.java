@@ -13,6 +13,7 @@ import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -37,7 +38,7 @@ public class Notification {
     /**
      * The list of client
      */
-    private final Collection<Client> clients = new ArrayList<Client>();
+    private final HashMap<String, Client> clients = new HashMap<String, Client>();
     /**
      * logger
      */
@@ -100,16 +101,20 @@ public class Notification {
         }
     }
 
-    public void addClient(Client client) {
-        clients.add(client);
+    public void addClient(String url, Client client) {
+        clients.put(url, client);
     }
 
-    public void removeClient(Client client) {
-        clients.remove(client);
+    public void removeClient(String url, Client client) {
+        clients.remove(url);
     }
 
     public Object[] getClients() {
-        return clients.toArray();
+        return clients.values().toArray();
+    }
+    
+    public HashMap<String, Client> getHasMapClients() {
+        return clients;
     }
 
     public void setBuilder(NotificationBuilder builder) {

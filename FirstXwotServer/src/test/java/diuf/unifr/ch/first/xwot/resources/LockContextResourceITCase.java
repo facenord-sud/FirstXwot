@@ -8,6 +8,9 @@ package diuf.unifr.ch.first.xwot.resources;
 
 import com.sun.jersey.api.client.WebResource;
 import diuf.unifr.ch.first.xwot.jaxb.Lock;
+import diuf.unifr.ch.first.xwot.rxtx.test.ConnectionSimulator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.junit.After;
@@ -16,6 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import utils.JaxbTestFactory;
 import utils.TestHelpers;
 
 /**
@@ -29,6 +33,13 @@ public class LockContextResourceITCase extends TestHelpers{
      */
     @Test
     public void testGetLockContextResourceXML() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LockContextResourceITCase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JaxbTestFactory fac = new JaxbTestFactory(ConnectionSimulator.getInstance().getHardwareSpeaker());
+        fac.createLockOpen();
         WebResource ws = getClient("/lock");
         String result = ws.accept(MediaType.APPLICATION_XML).get(String.class);
         assertNotNull("response should not be null", result);

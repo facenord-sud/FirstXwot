@@ -100,7 +100,7 @@ public class HardwareSpeaker {
 
     }
 
-    public void speak(String aPhrase) {
+    public synchronized void speak(String aPhrase) {
         try {
             output.write((aPhrase + "\r\n").getBytes());
             output.flush();
@@ -112,7 +112,7 @@ public class HardwareSpeaker {
         }
     }
 
-    public String listen() {
+    public synchronized String listen() {
 
         try {
             char[] buff = new char[1024];
@@ -120,7 +120,6 @@ public class HardwareSpeaker {
             // converts int to character
             int value = input.read(buff);
             String s = new String(buff, 0, value);
-            System.out.println(s);
             return s;
         } catch (IOException e) {
             logger.error("error while reading data sended from server", e);
