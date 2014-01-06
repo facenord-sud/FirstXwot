@@ -105,16 +105,28 @@ public class Notification {
         clients.put(url, client);
     }
 
-    public void removeClient(String url, Client client) {
-        clients.remove(url);
+    public Client removeClient(String url) {
+        return clients.remove(url);
     }
 
     public Object[] getClients() {
         return clients.values().toArray();
     }
     
+    public Client getClient(String uri) {
+        return clients.get(uri);
+    }
+    
     public HashMap<String, Client> getHasMapClients() {
         return clients;
+    }
+    
+    public boolean hasClient(String uri) {
+        return clients.containsKey(uri);
+    }
+    
+    public Collection<Client> getArrayListClients() {
+        return clients.values();
     }
 
     public void setBuilder(NotificationBuilder builder) {
