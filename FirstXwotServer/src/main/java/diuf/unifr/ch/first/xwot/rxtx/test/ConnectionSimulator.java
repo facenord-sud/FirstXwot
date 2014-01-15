@@ -69,7 +69,6 @@ public class ConnectionSimulator {
     }
 
     public synchronized void stop() {
-        RxtxConnection.close();
         if (hardware != null) {
            // hardware.speak("");
             hardware.close();

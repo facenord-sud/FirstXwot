@@ -29,11 +29,22 @@ public class SerialHelpers extends TestHelpers {
     protected static HardwareSpeaker hardware;
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SerialHelpers.class);
 
-    @Before
-    public  void setUpTest() {
-        try {
-            simulator = new ConnectionSimulator();
+    @BeforeClass
+    public static void beforeClass() {
+        simulator = new ConnectionSimulator();
             hardware = simulator.getHardwareSpeaker();
+    }
+    
+    @AfterClass
+    public static void afterClass() {
+        simulator.stop();
+        logger.debug("serial simulation and hardware are stoped");
+    }
+
+    @Before
+    public void setUpTest() {
+        try {
+
             logger.debug("serial simulation and hardware are started");
             RxtxConnection.getInstance();
         } catch (PortInUseException ex) {
@@ -46,9 +57,9 @@ public class SerialHelpers extends TestHelpers {
     }
 
     @After
-    public  void tearDownTest() {
-        simulator.stop();
-        logger.debug("serial simulation and hardware are stoped");
+    public void tearDownTest() {
+        //RxtxConnection.close();
+        
     }
 
 }

@@ -102,7 +102,7 @@ public class HardwareSpeaker {
 
     public synchronized void speak(String aPhrase) {
         try {
-            output.write((aPhrase + "\r\n").getBytes());
+            output.write((aPhrase + "\n\n").getBytes());
             output.flush();
             Thread.sleep(1);
         } catch (IOException ex) {

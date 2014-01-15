@@ -64,6 +64,14 @@
             <snapshots>
             </snapshots>
         </repository>
+        <repository>
+            <id>diufpc46.diuf.unifr.ch</id>
+            <name>Diuf server</name>
+            <url>http://diufpc46.unifr.ch/artifactory/ext-release-local/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <!-- For the WADL part -->
         <!--
         <repository>
@@ -123,18 +131,10 @@
         
         <!--rxtx library-->
         <dependency>
-            <groupId>org.rxtx</groupId>
-            <artifactId>rxtx</artifactId>
-            <version>2.2pre2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.rxtx</groupId>
-            <artifactId>rxtx</artifactId>
-            <version>2.2pre2</version>
-            <type>so</type>
-            <classifier>bin</classifier>
-            <scope>runtime</scope>
-        </dependency>
+           <groupId>de.root1</groupId>
+           <artifactId>rxtx-rebundled</artifactId>
+           <version>2.2pre2</version>
+       </dependency>
         
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -178,14 +178,6 @@
             <groupId>com.sun.jersey.contribs</groupId>
             <artifactId>jersey-multipart</artifactId>
             <version>${jersey-version}</version>
-        </dependency>
-        
-        <!-- Testing stuff -->
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${jersey-version}</version>
-            <scope>test</scope>
         </dependency>
  
  

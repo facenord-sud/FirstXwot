@@ -61,6 +61,13 @@ public class RxtxConnectionTest extends SerialHelpers{
             hardware.speak(hello);
             logger.debug("setting up string to arduino");
             assertEquals("line should be equals to '" + hello + "'", hello, con.getLine());
+            //RxtxConnection.close();
+            logger.debug("rxtx closed");
+//            con = null;
+//            con = RxtxConnection.getInstance();
+            logger.debug("rxtx intialized");
+            hardware.speak("salut");
+            assertEquals("salut", con.getLine());
         } catch (PortInUseException ex) {
             Logger.getLogger(RxtxConnectionTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedCommOperationException ex) {
