@@ -41,8 +41,9 @@ public class ConnectionSimulator {
     private synchronized void initFromOs() {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.equals("Linux")) {
-            //TODO
-            throw new NotImplementedException();
+            slave = "/dev/pts/6";
+            master = "/dev/pts/7";
+            exec = "socat -d -d PTY: PTY: ";
         } else if (os.equals("mac os x")) {
             slave = "/dev/ttys001";
             master = "/dev/ttys002";
