@@ -40,7 +40,7 @@ public class ConnectionSimulator {
 
     private synchronized void initFromOs() {
         String os = System.getProperty("os.name").toLowerCase();
-        if (os.equals("Linux")) {
+        if (os.equals("linux")) {
             slave = "/dev/pts/6";
             master = "/dev/pts/7";
             exec = "socat -d -d PTY: PTY: ";

@@ -31,7 +31,6 @@ public class SerialHelpers extends TestHelpers {
 
     @BeforeClass
     public static void beforeClass() {
-        logger.debug("before class");
         simulator = new ConnectionSimulator();
             hardware = simulator.getHardwareSpeaker();
     }
@@ -45,7 +44,7 @@ public class SerialHelpers extends TestHelpers {
     @Before
     public void setUpTest() {
         try {
-
+            RxtxConnection.getInstance();
             logger.debug("serial simulation and hardware are started");
             RxtxConnection.getInstance();
         } catch (PortInUseException ex) {
@@ -59,7 +58,7 @@ public class SerialHelpers extends TestHelpers {
 
     @After
     public void tearDownTest() {
-        //RxtxConnection.close();
+        RxtxConnection.close();
         
     }
 
