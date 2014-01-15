@@ -31,6 +31,7 @@ public class SerialHelpers extends TestHelpers {
 
     @BeforeClass
     public static void beforeClass() {
+        logger.debug("before class");
         simulator = new ConnectionSimulator();
             hardware = simulator.getHardwareSpeaker();
     }
