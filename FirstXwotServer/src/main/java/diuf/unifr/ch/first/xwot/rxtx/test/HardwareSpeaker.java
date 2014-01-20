@@ -104,7 +104,7 @@ public class HardwareSpeaker {
         try {
             output.write((aPhrase + "\n\n").getBytes());
             output.flush();
-            Thread.sleep(1);
+            Thread.sleep(1000);
         } catch (IOException ex) {
             logger.error("error while writing data to the server", ex);
         } catch (InterruptedException ex) {
