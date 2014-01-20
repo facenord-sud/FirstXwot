@@ -24,12 +24,12 @@ import utils.TestHelpers;
  *
  * @author leo
  */
-public class RxtxConnectionTest extends SerialHelpers{
+public class RxtxConnectionTest extends SerialHelpers {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RxtxConnectionTest.class);
 
     public RxtxConnectionTest() {
-        
+
     }
 
     /**
@@ -56,18 +56,13 @@ public class RxtxConnectionTest extends SerialHelpers{
     @Test
     public void testGetLine() {
         try {
-            String hello = "hello world";
             RxtxConnection con = RxtxConnection.getInstance();
-            hardware.speak(hello);
-            logger.debug("setting up string to arduino");
-            assertEquals("line should be equals to '" + hello + "'", hello, con.getLine());
-            //RxtxConnection.close();
-            logger.debug("rxtx closed");
-//            con = null;
-//            con = RxtxConnection.getInstance();
-            logger.debug("rxtx intialized");
-            hardware.speak("salut");
-            assertEquals("salut", con.getLine());
+            sayHello("Hello world!", con);
+            sayHello("salut", con);
+            sayHello("hola", con);
+            sayHello("hallo", con);
+            sayHello("ciao", con);
+            sayHello("grüesser", con);
         } catch (PortInUseException ex) {
             Logger.getLogger(RxtxConnectionTest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedCommOperationException ex) {
@@ -76,5 +71,11 @@ public class RxtxConnectionTest extends SerialHelpers{
             Logger.getLogger(RxtxConnectionTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private void sayHello(String hello, RxtxConnection con) {
+        hardware.speak(hello);
+        logger.debug("setting up string to arduino");
+        assertEquals("line should be equals to '" + hello + "'", hello, con.getLine());
     }
 }
