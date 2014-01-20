@@ -52,6 +52,8 @@ public class HardwareSpeaker {
      * Default bits per second for COM port.
      */
     private static final int DATA_RATE = 9600;
+    
+    private RxtxConnection con;
 
     public HardwareSpeaker(String port) {
         this.port = port;
@@ -60,6 +62,7 @@ public class HardwareSpeaker {
 
     private void init() {
         try {
+            con = RxtxConnection.getInstance();
             CommPortIdentifier portId = null;
             Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
@@ -104,7 +107,14 @@ public class HardwareSpeaker {
         try {
             output.write((aPhrase + "\n\n").getBytes());
             output.flush();
-            Thread.sleep(1000);
+            int maxIteration = 0;
+            while(con.getLine() == null || !con.getLine().equals(aPhrase)) {
+                maxIteration++;
+                Thread.sleep(1);
+                if(maxIteration>5000) {// wait max 5 sec before continuing
+                    break;
+                }
+            }
         } catch (IOException ex) {
             logger.error("error while writing data to the server", ex);
         } catch (InterruptedException ex) {
