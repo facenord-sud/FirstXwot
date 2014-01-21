@@ -64,13 +64,21 @@
             <snapshots>
             </snapshots>
         </repository>
-        <repository>
+        <!--<repository>
             <id>diufpc46.diuf.unifr.ch</id>
             <name>Diuf server</name>
             <url>http://diufpc46.unifr.ch/artifactory/ext-release-local/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>-->
+        <repository>
+            <id>my.mvn.repo</id>
+            <url>https://github.com/facenord-sud/RxTx-Rebundeled/tree/master</url>
+            <!-- use snapshot version -->
+            <snapshots>
+               <enabled>false</enabled>
+             </snapshots>
         </repository>
         <!-- For the WADL part -->
         <!--
