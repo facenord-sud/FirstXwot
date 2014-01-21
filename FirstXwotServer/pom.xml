@@ -74,7 +74,7 @@
         </repository>-->
         <repository>
             <id>my.mvn.repo</id>
-            <url>https://github.com/facenord-sud/RxTx-Rebundeled/tree/master</url>
+            <url>https://github.com/facenord-sud/RxTx-Rebundeled/raw/master</url>
             <!-- use snapshot version -->
             <snapshots>
                <enabled>false</enabled>
