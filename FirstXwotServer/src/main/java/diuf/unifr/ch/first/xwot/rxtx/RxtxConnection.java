@@ -41,6 +41,7 @@ public class RxtxConnection {
         "/dev/ttyUSB0", // Linux
         "/dev/ttyACM0", // debian/raspbian
         "/dev/ttyAMA0", // debian/raspbian
+        "/dev/ttyS1",
         "COM3", // Windows
     };
 
