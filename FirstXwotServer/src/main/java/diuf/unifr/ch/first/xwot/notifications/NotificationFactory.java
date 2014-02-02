@@ -33,11 +33,11 @@ public class NotificationFactory {
      * @return Notification instance for lock context
      */
     public synchronized Notification getLockNotification() {
-        if(openNotification == null) {
-            openNotification = new Notification();
-            openNotification.setBuilder(new LockNotificationBuilder());
+        if(lockNotification == null) {
+            lockNotification = new Notification();
+            lockNotification.setBuilder(new LockNotificationBuilder());
         }
-        return openNotification;
+        return lockNotification;
     }
 
     /**
@@ -45,11 +45,11 @@ public class NotificationFactory {
      * @return Notification instance for open context
      */
     public synchronized Notification getOpenNotification() {
-        if(lockNotification == null) {
-            lockNotification = new Notification();
-            lockNotification.setBuilder(new OpenNotificationBuilder());
+        if(openNotification == null) {
+            openNotification = new Notification();
+            openNotification.setBuilder(new OpenNotificationBuilder());
         }
-        return lockNotification;
+        return openNotification;
     }
     
     
