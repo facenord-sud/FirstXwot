@@ -26,10 +26,10 @@ public class DoorDeviceResource {
         Door.ListOfDevices devices = new Door.ListOfDevices();
         
         Lock lock = new Lock();
-        lock.setUri(URI.create(uri.getBaseUri() + "/FirstXwotServer/resources/door/lock"));
+        lock.setUri(URI.create(uri.getBaseUri() + "FirstXwotServer/resources/door/lock"));
         
         Open open = new Open();
-        open.setUri(URI.create(uri.getBaseUri() + "/FirstXwotServer/resources/door/open"));
+        open.setUri(URI.create(uri.getBaseUri() + "FirstXwotServer/resources/door/open"));
         
         devices.setLock(lock);
         devices.setOpen(open);
