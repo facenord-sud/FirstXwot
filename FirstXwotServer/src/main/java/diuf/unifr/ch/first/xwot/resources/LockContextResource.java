@@ -52,10 +52,10 @@ public class LockContextResource {
         ContiniousServo cs = new ContiniousServo();
         LinearPotentiometer lp = new LinearPotentiometer();
         if (lock.getState() == Lock.State.OPEN) {
-            lp.setPosition(LinearPotentiometer.OPEN_POSITION);
+            lp.setPosition(LinearPotentiometer.CLOSED_POSITION);
             cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
         } else {
-            lp.setPosition(LinearPotentiometer.CLOSED_POSITION);
+            lp.setPosition(LinearPotentiometer.OPEN_POSITION);
             cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
         }
         utils.addComponent(ArduinoComponents.LOCK_SERVO, cs);
