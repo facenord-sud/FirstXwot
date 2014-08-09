@@ -88,7 +88,17 @@ A nouveau, tout le code utilisé ici provient de la dépendance ArduinoComunic
 A noter que la classe  `LinearPotentiometer` est une classe de la dépendance Maven [ArduinoComponents](https://github.com/facenord-sud/ArduinoComponents), également développée par nos soins.
 
 ### Implémentation des ressources
-L'implémentation des ressources du service Web est fait de manière classique comme n'importe quelle application Jersey. La différence est qu'à la place d'interroger une base de données, nous interrogeons un objet piloté par un Arduino. Ce qui est similaire sur de nombreux points, puisque l'Arduino envoie également des données qui sont transformées en classe JAXB. De même que les interactions de l'utilisateurs modifient l'état de l'objet.
+L'implémentation des ressources du service Web est fait de manière classique comme n'importe quelle application Jersey. La différence est qu'à la place d'interroger une base de données, nous interrogeons un objet piloté par un Arduino. Ce qui est similaire sur de nombreux points, puisque l'Arduino envoie également des données qui sont transformées en classe JAXB. De même que les informations envoyées par l'utilisateur et transformées en classes JAXB permettent de modifier l'état de l'Arduino.
+
+Pour une requête GET le principe est le suivant:
+1. Aller lire l'état du composant requis
+2. Les informations de l'instance de la classe représentant le composant sont transformées en une classe JAXB
+3. Envoyer cette classe JAXB à l'utilisateur
+
+Pour une requête PUT:
+1. Récuperer la classe JAXB contenant  les informations envoyées par l'utilisateur
+2. En fonction de ces informations, modifier l'état de l'Arduino
+3. Retourner quelque chose à l'utilsateur
 
 ### Implémentation des notifications
 Une partie de notre travail, consistait à implémenter un système de notifications (Webhooks). C’est- à-dire envoyer des requêtes POST vers un serveur client à chaque changement d’état de l’Arduino. Ceci est appelé un publisher dans notre travail.
