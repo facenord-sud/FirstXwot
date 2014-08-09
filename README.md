@@ -53,6 +53,7 @@ Il y a deux partie de l'implémentation à distinguer. La première est l'intera
 ### Interaction avec l'Arduino
 Pour communiquer avec l'Arduino nous utilisons la bibliothèque[ArduinoCommunication](https://github.com/facenord-sud/ArduinoCommunication) qui utilise la bibliothèque java [RxTx](http://www.rxtx.org). Les données sont encodées au format JSON. Pour plus d'informations, consulter le répertoire [ArduinoCommunication](https://github.com/facenord-sud/ArduinoCommunication).
 
+#### Connaître l'état d'un composant
 Afin de connaître l’état d’un de nos composant, par exemple, un potentiomètre linéaire, un code similaire à  celui ci-dessous est utilisé.
 
 ```java
@@ -62,7 +63,7 @@ RxtxUtils utils = new RxtxUtils();
 LinearPotentiometer lp = utils.getComponent(LinearPotentiometer.class,
 ArduinoComponents.LOCK_SENSOR);
 ```
-#### Connaître l'état d'un composant
+
 La ligne numéro deux initialise une classe dont une des méthodes simplifie l’utilisation de la bibliothèque GSON, permettant de lire facilement les données envoyées par l’Arduino. La ligne numéro quatre prend la dernière chaîne de caractères JSON envoyée par l'Arduino, la parse et assigne à la classe `LinearPotentiometer` les valeurs contenues par la chaîne de caractères JSON. Tout le code utilisé dans cette exemple a été développé par nos soins
 
 #### Modifier l'état d'un composant
