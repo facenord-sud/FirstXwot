@@ -91,11 +91,13 @@ A noter que la classe  `LinearPotentiometer` est une classe de la dépendance M
 L'implémentation des ressources du service Web est fait de manière classique comme n'importe quelle application Jersey. La différence est qu'à la place d'interroger une base de données, nous interrogeons un objet piloté par un Arduino. Ce qui est similaire sur de nombreux points, puisque l'Arduino envoie également des données qui sont transformées en classe JAXB. De même que les informations envoyées par l'utilisateur et transformées en classes JAXB permettent de modifier l'état de l'Arduino.
 
 Pour une requête GET le principe est le suivant:
+
 1. Aller lire l'état du composant requis
 2. Les informations de l'instance de la classe représentant le composant sont transformées en une classe JAXB
 3. Envoyer cette classe JAXB à l'utilisateur
 
 Pour une requête PUT:
+
 1. Récuperer la classe JAXB contenant  les informations envoyées par l'utilisateur
 2. En fonction de ces informations, modifier l'état de l'Arduino
 3. Retourner quelque chose à l'utilsateur
