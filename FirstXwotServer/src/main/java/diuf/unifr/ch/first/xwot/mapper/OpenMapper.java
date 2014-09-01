@@ -24,15 +24,15 @@ public class OpenMapper {
     public Open map() {
         open.setPosition(lp.getPercentPosition());
         if (lp.getPosition() >= LinearPotentiometer.CLOSED_POSITION - LinearPotentiometer.ERROR) {
-            open.setState(Open.State.CLOSED);
+            open.setState(Open.State.OPEN);
         } else if (lp.getPosition() <= LinearPotentiometer.OPEN_POSITION + LinearPotentiometer.ERROR) {
-            open.setState(Open.State.OPEN);
+            open.setState(Open.State.CLOSED);
         } else if (!lp.isClosing() && lp.getDifference() != 0) {
-            open.setState(Open.State.OPENING);
-        } else if (lp.isClosing()) {
             open.setState(Open.State.CLOSING);
+        } else if (lp.isClosing()) {
+            open.setState(Open.State.OPENING);
         } else {
-            open.setState(Open.State.OPEN);
+            open.setState(Open.State.CLOSED);
         }
         return open;
     }

@@ -24,9 +24,9 @@ public class LockMapper {
     
     public Lock map() {
         if (lp.getPosition() <= LinearPotentiometer.MIDDLE_POSITION) {
-            lock.setState(Lock.State.OPEN);
-        } else {
             lock.setState(Lock.State.CLOSED);
+        } else {
+            lock.setState(Lock.State.OPEN);
         }
         return lock;
     }

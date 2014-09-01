@@ -15,9 +15,9 @@ public class LinearPotentiometer {
     private int oldPosition;
     private int position;
 
-    public static final int OPEN_POSITION = 0;
-    public static final int CLOSED_POSITION = 1023;
-    public static final int MIDDLE_POSITION = 511;
+    public static final int OPEN_POSITION = 20;
+    public static final int CLOSED_POSITION = 1000;
+    public static final int MIDDLE_POSITION = 490;
     public static final int ERROR = 15;
 
     public int getPosition() {

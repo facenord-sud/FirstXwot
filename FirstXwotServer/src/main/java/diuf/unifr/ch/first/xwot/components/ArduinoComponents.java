@@ -16,7 +16,7 @@ public class ArduinoComponents {
     
     public final static TinkerShield OPEN_SERVO = TinkerShield.o_1;
     public final static TinkerShield LOCK_SERVO = TinkerShield.o_2;
-    public final static TinkerShield OPEN_SENSOR = TinkerShield.i_0;
-    public final static TinkerShield LOCK_SENSOR = TinkerShield.i_1;
+    public final static TinkerShield OPEN_SENSOR = TinkerShield.i_1;
+    public final static TinkerShield LOCK_SENSOR = TinkerShield.i_0;
     
 }

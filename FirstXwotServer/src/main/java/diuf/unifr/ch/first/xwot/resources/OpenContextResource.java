@@ -77,11 +77,13 @@ public class OpenContextResource {
         } // l'utilisateur indique un état
         else {
             if (open.getState() == Open.State.OPEN) {
-                lp.setPosition(LinearPotentiometer.OPEN_POSITION);
-                cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
-            } else {
                 lp.setPosition(LinearPotentiometer.CLOSED_POSITION);
                 cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
+                logger.debug("open the door");
+            } else {
+                lp.setPosition(LinearPotentiometer.OPEN_POSITION);
+                cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
+                logger.debug("close the door");
             }
         }
         utils.addComponent(ArduinoComponents.OPEN_SERVO, cs);

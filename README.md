@@ -6,7 +6,7 @@ Ce projet a pour but de relier un rideau de fer au Web. Un rideau de fer d’un 
 
 ### Fonctionnement mécanique
 Le rideau est actionné de manière mécanisée grâce à un moteur à rotation continu, de même que la barre de fermeture. Afin de connaître la position du rideau et son état (verrouillé/déverrouillé), deux potentiomètres linéaires sont utilisés. Toutes les actions effectuées par les moteurs peuvent être également effectuées manuellement, même si le changement d’état du rideau sera toujours transmis au serveur.Le schéma ci-dessous donne une idée générale du type de rideau de fer qui a été implémenté et construit.
-![](schema_porte.jpg)
+![](https://raw.githubusercontent.com/facenord-sud/FirstXwot/master/schema_porte.jpg)
 
 ### Fonctionnement eléctronique
 Pour piloter les deux moteurs et connaître la valeur des potentiomètres linéaires, nous utilisons un micro-contrôlleur [Arduino](arduino.cc). La communication entre le service Web et l'Arduino se fait par le port série au moyen d'un câble USB.
@@ -14,7 +14,7 @@ Pour piloter les deux moteurs et connaître la valeur des potentiomètres linéa
 ### Cas d'utilisation
 Chaque porte doit posséder sa propre adresse IP et être contrôlable à travers le protocole HTTP. C’est à dire, qu’il est possible de la manipuler depuis un navigateur Web. De plus, le serveur Web doit suivre l’architecture RESTful et retourner les données sous différents formats, XML et JSON. Le serveur doit également être capable d’envoyer des événements aux clients enregistrés. Une interface client Web, utilisant les standards du Web, doit être fournie afin de gérer les différentes portes d’un magasin.
 
-Ci-dessous, le diagramme décrit les différentes actions pouvant être effectuées sur la porte.![](door_use_case.jpg)
+Ci-dessous, le diagramme décrit les différentes actions pouvant être effectuées sur la porte.![](https://raw.githubusercontent.com/facenord-sud/FirstXwot/master/door_use_case.jpg)
 
 Pour des questions de lisibilité, nous avons décidé de na pas illustrer la gestion des notifications et de ne pas différencier la manipulation physique de la manipulation virtuelle.
 

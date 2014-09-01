@@ -53,10 +53,10 @@ public class LockContextResource {
         LinearPotentiometer lp = new LinearPotentiometer();
         if (lock.getState() == Lock.State.OPEN) {
             lp.setPosition(LinearPotentiometer.CLOSED_POSITION);
-            cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
+            cs.setSpeed(ContiniousServo.OPEN_SLOW_SPEED);
         } else {
             lp.setPosition(LinearPotentiometer.OPEN_POSITION);
-            cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
+            cs.setSpeed(ContiniousServo.CLOSE_SLOW_SPEED);
         }
         utils.addComponent(ArduinoComponents.LOCK_SERVO, cs);
         utils.addComponent(ArduinoComponents.LOCK_SENSOR, lp);
