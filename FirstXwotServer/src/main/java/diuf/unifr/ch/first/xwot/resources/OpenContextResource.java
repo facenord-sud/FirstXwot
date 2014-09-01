@@ -68,9 +68,9 @@ public class OpenContextResource {
             lp.setOldPosition(lp.getPosition());
             lp.setFromPercentPosition(open.getPosition());
             if (actualPosition < open.getPosition()) {
-                cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
-            } else if (actualPosition > open.getPosition()) {
                 cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
+            } else if (actualPosition > open.getPosition()) {
+                cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
             } else {
                 cs.setSpeed(ContiniousServo.NULL_SPEED);
             }
@@ -78,11 +78,11 @@ public class OpenContextResource {
         else {
             if (open.getState() == Open.State.OPEN) {
                 lp.setPosition(LinearPotentiometer.CLOSED_POSITION);
-                cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
+                cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
                 logger.debug("open the door");
             } else {
                 lp.setPosition(LinearPotentiometer.OPEN_POSITION);
-                cs.setSpeed(ContiniousServo.OPEN_MAX_SPEED);
+                cs.setSpeed(ContiniousServo.CLOSE_MAX_SPEED);
                 logger.debug("close the door");
             }
         }

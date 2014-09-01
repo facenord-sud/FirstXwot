@@ -5,6 +5,7 @@ package diuf.unifr.ch.first.xwot.resources;
 
 import diuf.unifr.ch.first.xwot.jaxb.Client;
 import diuf.unifr.ch.first.xwot.notifications.NotificationFactory;
+import diuf.unifr.ch.first.xwot.rxtx.RxtxConnection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -17,11 +18,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
+import org.slf4j.LoggerFactory;
 
 @Path("/door/open/pub")
 public class OpenContextResourcePublisherResource {
 
     private final String uriPattern = "/{uri: [a-zA-Z0-9_.:\\-/]+}";
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RxtxConnection.class);
 
     @GET
     @Produces({"application/xml", "application/json", "text/xml"})
@@ -61,8 +64,10 @@ public class OpenContextResourcePublisherResource {
     @Path(uriPattern)
     @Produces({"application/xml", "application/json", "text/xml"})
     public Response deleteOpenClientResourceXML(@PathParam("uri") String uri) {
+        logger.debug("THE uri params is: " + uri);
         Client c = NotificationFactory.getInstance().getOpenNotification().
                 removeClient(uri);
+        if(c != null)logger.debug("The client: " + c.getUri());
         return Response.ok(c).build();
     }
 
